@@ -1,0 +1,22 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { Header } from '@/components/Header';
+import { Hero } from '@/components/Hero';
+import { Projects } from '@/components/Projects';
+import { Experience } from '@/components/Experience';
+import { ContactSection } from '@/components/ContactSection';
+import { Footer } from '@/components/Footer';
+---
+
+<Layout title="Alex Morgan — Product Engineer & Web Architect">
+  <Header client:load />
+  
+  <main className="relative z-10">
+    <Hero client:load />
+    <Projects client:visible />
+    <Experience client:visible />
+    <ContactSection client:visible />
+  </main>
+
+  <Footer />
+</Layout>
