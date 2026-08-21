@@ -11,7 +11,36 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+        hand: ['"Caveat"', 'cursive'],
+        sketch: ['"Patrick Hand"', 'cursive'],
+      },
       colors: {
+        paper: {
+          DEFAULT: "#fdfbf7",
+          dark: "#f6f2e8",
+          card: "#ffffff",
+          yellow: "#fef9c3",
+          blue: "#eff6ff",
+          pink: "#fdf2f8",
+        },
+        ink: {
+          DEFAULT: "#1e293b",
+          light: "#475569",
+          muted: "#94a3b8",
+          blue: "#1d4ed8",
+        },
+        ruled: {
+          blue: "rgba(96, 165, 250, 0.45)",
+          red: "rgba(244, 63, 94, 0.75)",
+        },
+        highlighter: {
+          yellow: "rgba(254, 240, 138, 0.7)",
+          blue: "rgba(186, 230, 253, 0.7)",
+          pink: "rgba(251, 207, 232, 0.7)",
+          green: "rgba(187, 247, 208, 0.7)",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -47,43 +76,41 @@ export default {
         },
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
-      backdropBlur: {
-        xs: '2px',
-        glass: '16px',
-        'glass-lg': '24px',
+        sketch: "255px 15px 225px 15px/15px 225px 15px 255px",
+        'sketch-sm': "255px 10px 225px 10px/10px 225px 10px 255px",
+        'sketch-lg': "255px 25px 225px 25px/25px 225px 25px 255px",
       },
       boxShadow: {
-        glass: '0 8px 32px 0 rgba(31, 38, 135, 0.06)',
-        'glass-hover': '0 12px 40px 0 rgba(31, 38, 135, 0.12)',
-        'glass-sm': '0 4px 16px 0 rgba(31, 38, 135, 0.04)',
+        doodle: "3px 3px 0px 0px #1e293b",
+        'doodle-sm': "2px 2px 0px 0px #1e293b",
+        'doodle-lg': "5px 5px 0px 0px #1e293b",
+        'doodle-hover': "6px 6px 0px 0px #1e293b",
+        'paper-shadow': "0 4px 12px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.03)",
       },
       keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+        "doodle-wiggle": {
+          "0%, 100%": { transform: "rotate(0deg) scale(1)" },
+          "25%": { transform: "rotate(-1.5deg) scale(1.02)" },
+          "75%": { transform: "rotate(1.5deg) scale(1.02)" },
         },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+        "doodle-pulse": {
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.05) rotate(1deg)" },
         },
-        "fade-in": {
-          from: { opacity: "0", transform: "translateY(8px)" },
-          to: { opacity: "1", transform: "translateY(0)" },
+        "scribble-draw": {
+          "0%": { strokeDashoffset: "1" },
+          "100%": { strokeDashoffset: "0" },
         },
-        "float": {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-6px)" },
-        }
+        "float-gentle": {
+          "0%, 100%": { transform: "translateY(0px) rotate(0deg)" },
+          "50%": { transform: "translateY(-4px) rotate(0.5deg)" },
+        },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in": "fade-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards",
-        "float": "float 6s ease-in-out infinite",
+        "doodle-wiggle": "doodle-wiggle 0.35s ease-in-out",
+        "doodle-pulse": "doodle-pulse 2s ease-in-out infinite",
+        "scribble-draw": "scribble-draw 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards",
+        "float-gentle": "float-gentle 4s ease-in-out infinite",
       },
     },
   },

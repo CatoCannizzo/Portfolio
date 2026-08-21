@@ -5,27 +5,27 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]",
+  "inline-flex items-center justify-center whitespace-nowrap text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 active:scale-[0.97] cursor-pointer",
   {
     variants: {
       variant: {
         default:
-          "bg-slate-900 text-slate-50 shadow-sm hover:bg-slate-800 hover:shadow-md transition-all",
-        glass:
-          "glass-panel text-slate-800 hover:bg-white/90 hover:shadow-glass-hover border border-white/80",
+          "bg-slate-900 text-white sketch-box doodle-shadow hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-doodle-lg transition-all",
+        doodle:
+          "bg-white text-slate-900 sketch-box doodle-shadow hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-doodle-lg hover:bg-yellow-50 transition-all",
+        yellow:
+          "bg-yellow-200 text-slate-900 sketch-box doodle-shadow hover:bg-yellow-300 hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-doodle-lg transition-all",
         outline:
-          "border border-slate-200/80 bg-white/50 backdrop-blur-md hover:bg-white/80 hover:text-slate-900 text-slate-700",
-        secondary:
-          "bg-slate-100/80 text-slate-900 hover:bg-slate-200/80 backdrop-blur-sm",
+          "border-2 border-slate-900 bg-white/80 sketch-box-sm hover:bg-slate-100 text-slate-800",
         ghost:
-          "hover:bg-slate-100/80 text-slate-600 hover:text-slate-900",
+          "hover:bg-slate-200/60 text-slate-700 hover:text-slate-900 rounded-lg",
         link:
-          "text-slate-900 underline-offset-4 hover:underline",
+          "text-slate-900 underline-offset-4 hover:underline font-hand text-lg",
       },
       size: {
-        default: "h-10 px-5 py-2",
-        sm: "h-8 rounded-lg px-3 text-xs",
-        lg: "h-12 rounded-xl px-7 text-base font-semibold",
+        default: "h-11 px-5 py-2",
+        sm: "h-8 px-3.5 text-xs",
+        lg: "h-12 px-7 text-base",
         icon: "h-9 w-9",
       },
     },

@@ -1,0 +1,235 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import {
+  DoodleUnderline,
+  DoodleTape,
+  DoodleStar,
+  DoodleCheck,
+  DoodlePaperclip,
+} from '@/components/Doodles';
+import { projectsData } from '@/components/Projects';
+import { ArrowLeft, ArrowUpRight, ExternalLink } from 'lucide-react';
+
+export function getStaticPaths() {
+  return projectsData.map((project, index) => {
+    const prev = index > 0 ? projectsData[index - 1] : null;
+    const next = index < projectsData.length - 1 ? projectsData[index + 1] : null;
+    return {
+      params: { slug: project.slug },
+      props: { project, prev, next },
+    };
+  });
+}
+
+const { project, prev, next } = Astro.props;
+---
+
+<Layout title={`${project.title} — Case Study Notes`}>
+  <div class="max-w-4xl mx-auto px-6 sm:pl-32 sm:pr-8 py-12 md:py-20">
+    
+    <!-- Top Breadcrumb Navigation -->
+    <div class="flex items-center justify-between mb-8 pb-4 border-b border-dashed border-slate-300">
+      <a
+        href="/#projects"
+        class="group inline-flex items-center gap-2 font-sketch text-sm font-bold text-slate-700 hover:text-slate-900 hover:rotate-[-1deg] transition-all bg-white px-3 py-1.5 sketch-box-sm shadow-doodle-sm"
+      >
+        <ArrowLeft class="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+        <span>← Back to Notebook</span>
+      </a>
+
+      <div class="flex items-center gap-2">
+        <span class="font-sketch text-xs text-slate-500 uppercase tracking-widest">
+          Project Case Study
+        </span>
+        <DoodleStar size={14} color="#f59e0b" />
+      </div>
+    </div>
+
+    <!-- Project Header & Title -->
+    <div class="relative mb-12">
+      <!-- Top Washi Tape -->
+      <div class="absolute -top-5 left-8 z-10">
+        <DoodleTape variant={project.tapeColor || 'yellow'} className="w-28 h-6" />
+      </div>
+
+      <div class="bg-white sketch-box-thick doodle-shadow-lg p-6 sm:p-10 relative">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div class="flex items-center gap-2">
+            <Badge variant={project.tapeColor || 'yellow'} className="text-xs">
+              {project.category}
+            </Badge>
+            <span class="font-hand text-sm text-slate-500">• Entry #{project.id}</span>
+          </div>
+
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1 font-sketch text-xs font-bold text-blue-600 hover:text-blue-800 underline underline-offset-4"
+          >
+            <span>Live Repo / Prototype</span>
+            <ExternalLink class="h-3.5 w-3.5" />
+          </a>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight font-sans mb-3">
+          {project.title}
+        </h1>
+
+        <div class="relative inline-block mb-6">
+          <DoodleUnderline color="#f43f5e" className="w-48" />
+        </div>
+
+        <p class="text-lg sm:text-xl text-slate-700 font-normal leading-relaxed max-w-2xl font-sans mb-8">
+          {project.description}
+        </p>
+
+        <!-- Project Metadata Index Card -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 bg-yellow-50/70 sketch-box-sm text-xs font-sans">
+          <div>
+            <span class="font-sketch block text-slate-500 font-bold uppercase">Role</span>
+            <span class="font-bold text-slate-900">Lead Architecture</span>
+          </div>
+          <div>
+            <span class="font-sketch block text-slate-500 font-bold uppercase">Timeline</span>
+            <span class="font-bold text-slate-900">3 Months</span>
+          </div>
+          <div>
+            <span class="font-sketch block text-slate-500 font-bold uppercase">Impact</span>
+            <span class="font-bold text-slate-900">{project.metrics || 'High Performance'}</span>
+          </div>
+          <div>
+            <span class="font-sketch block text-slate-500 font-bold uppercase">Platform</span>
+            <span class="font-bold text-slate-900">Web / Cloud</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case Study Sections -->
+    <div class="space-y-12">
+      
+      <!-- Section 1: Overview & Challenges -->
+      <section class="bg-white sketch-box p-6 sm:p-8 doodle-shadow">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="font-sketch text-xs font-bold uppercase text-slate-400">01 // Problem Statement</span>
+        </div>
+        <h2 class="text-2xl font-bold text-slate-900 font-sans mb-4">
+          The Challenge &amp; Architecture Goals
+        </h2>
+        <p class="text-slate-700 leading-relaxed font-sans mb-4">
+          Modern web applications frequently suffer from bloated JavaScript payloads, excessive DOM reflows, and slow initial render cycles. For <span class="font-bold">{project.title}</span>, the goal was to build a streamlined experience that maximizes speed, accessibility, and intuitive tactile micro-interactions without compromising functionality.
+        </p>
+        <p class="text-slate-700 leading-relaxed font-sans">
+          {project.details}
+        </p>
+      </section>
+
+      <!-- Section 2: Sketch Wireframe Placeholder -->
+      <section class="bg-[#fffdf9] sketch-box-dashed p-8 text-center relative overflow-hidden">
+        <div class="absolute top-3 right-4">
+          <DoodlePaperclip />
+        </div>
+        <span class="font-sketch text-xs uppercase tracking-widest text-slate-400 font-bold block mb-2">
+          Architecture Blueprint &amp; Layout Diagram
+        </span>
+        <div class="h-48 sm:h-64 border-2 border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center p-6 bg-slate-50/50">
+          <DoodleStar size={28} color="#3b82f6" className="mb-2" />
+          <p class="font-sketch text-base font-bold text-slate-700 mb-1">
+            [ Interactive Wireframe &amp; Component Schema ]
+          </p>
+          <p class="font-hand text-sm text-slate-500 max-w-sm">
+            Modular reactive islands rendered via Astro with selective hydration and zero-waste client bundles.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 3: Technical Implementation Checklist -->
+      <section class="bg-white sketch-box p-6 sm:p-8 doodle-shadow">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="font-sketch text-xs font-bold uppercase text-slate-400">02 // Key Features</span>
+        </div>
+        <h2 class="text-2xl font-bold text-slate-900 font-sans mb-4">
+          Engineering Highlights
+        </h2>
+
+        <div class="space-y-3">
+          <div class="flex items-start gap-3 p-3 bg-yellow-50/50 sketch-box-sm">
+            <div class="mt-0.5">
+              <DoodleCheck checked={true} />
+            </div>
+            <div>
+              <h3 class="font-sans font-bold text-sm text-slate-900">Zero-Layout Shift Rendering</h3>
+              <p class="text-xs text-slate-600 font-sans mt-0.5">Engineered deterministic container constraints to achieve a 0.00 CLS score.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3 bg-sky-50/50 sketch-box-sm">
+            <div class="mt-0.5">
+              <DoodleCheck checked={true} />
+            </div>
+            <div>
+              <h3 class="font-sans font-bold text-sm text-slate-900">Accessible Keyboard Navigation</h3>
+              <p class="text-xs text-slate-600 font-sans mt-0.5">Complies fully with WCAG 2.1 AAA contrast and focus trap requirements.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3 bg-rose-50/50 sketch-box-sm">
+            <div class="mt-0.5">
+              <DoodleCheck checked={true} />
+            </div>
+            <div>
+              <h3 class="font-sans font-bold text-sm text-slate-900">Sub-100ms Hydration</h3>
+              <p class="text-xs text-slate-600 font-sans mt-0.5">Optimized Astro island hydration triggers using IntersectionObserver.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-dashed border-slate-200 flex flex-wrap gap-2">
+          <span class="font-sketch text-xs font-bold text-slate-500 self-center mr-2">Technologies Used:</span>
+          {project.tags.map((tag) => (
+            <Badge variant="yellow" className="text-xs">
+              #{tag}
+            </Badge>
+          ))}
+        </div>
+      </section>
+
+      <!-- Bottom Pagination Links -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t-2 border-dashed border-slate-300">
+        {prev ? (
+          <a
+            href={`/projects/${prev.slug}`}
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 py-2 px-4 bg-white sketch-box-sm font-sketch text-sm font-bold text-slate-800 hover:bg-yellow-50 hover:rotate-[-1deg] transition-all shadow-doodle-sm"
+          >
+            <span>← {prev.title}</span>
+          </a>
+        ) : (
+          <div />
+        )}
+
+        <a
+          href="/#projects"
+          class="font-hand text-base text-slate-600 hover:text-slate-900 underline underline-offset-4"
+        >
+          Return to Table of Contents
+        </a>
+
+        {next ? (
+          <a
+            href={`/projects/${next.slug}`}
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 py-2 px-4 bg-white sketch-box-sm font-sketch text-sm font-bold text-slate-800 hover:bg-yellow-50 hover:rotate-[1deg] transition-all shadow-doodle-sm"
+          >
+            <span>{next.title} →</span>
+          </a>
+        ) : (
+          <div />
+        )}
+      </div>
+
+    </div>
+  </div>
+</Layout>

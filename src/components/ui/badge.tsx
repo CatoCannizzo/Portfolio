@@ -4,22 +4,28 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-full border px-3 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2",
+  "inline-flex items-center sketch-box-sm px-2.5 py-0.5 text-xs font-sketch tracking-wide transition-all focus:outline-none",
   {
     variants: {
       variant: {
         default:
-          "border-transparent bg-slate-900 text-slate-50 shadow-sm",
-        glass:
-          "glass-pill border-slate-200/80 bg-white/70 text-slate-700 backdrop-blur-md shadow-sm",
-        secondary:
-          "border-transparent bg-slate-100 text-slate-800",
+          "bg-slate-900 text-white border-slate-900",
+        yellow:
+          "bg-yellow-200 text-slate-900 border-slate-900 shadow-doodle-sm",
+        blue:
+          "bg-sky-200 text-slate-900 border-slate-900 shadow-doodle-sm",
+        pink:
+          "bg-rose-200 text-slate-900 border-slate-900 shadow-doodle-sm",
+        green:
+          "bg-emerald-200 text-slate-900 border-slate-900 shadow-doodle-sm",
         outline:
-          "border-slate-300 text-slate-700 bg-white/40",
+          "bg-white text-slate-800 border-slate-800",
+        tape:
+          "bg-yellow-100 text-slate-800 border-dashed border-slate-400 rotate-[-1deg]",
       },
     },
     defaultVariants: {
-      variant: "glass",
+      variant: "yellow",
     },
   }
 )

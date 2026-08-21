@@ -4,35 +4,35 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 45 40% 98%;
+    --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 222 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 222 47% 11%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 222 47% 11%;
+    --primary-foreground: 45 40% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 20% 94%;
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 48 96% 89%;
+    --accent-foreground: 222 47% 11%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 222 47% 11%;
+    --input: 222 47% 11%;
+    --ring: 222 47% 11%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
   }
 }
 
@@ -43,54 +43,287 @@
 
   html {
     scroll-behavior: smooth;
+    background-color: #fdfbf7;
   }
 
   body {
-    @apply bg-slate-50/50 text-slate-900 antialiased selection:bg-slate-200 selection:text-slate-900;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    @apply text-slate-800 antialiased selection:bg-yellow-200 selection:text-slate-900;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #fdfbf7;
   }
 }
 
-/* Custom Light Glassmorphism Utility Classes */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+/* Notebook Ruled Paper Lines */
+.notebook-paper-bg {
+  background-color: #fdfbf7;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 31px,
+    rgba(96, 165, 250, 0.38) 31px,
+    rgba(96, 165, 250, 0.38) 32px
+  );
+  background-size: 100% 32px;
 }
 
-.glass-panel-hover {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+/* Sketch & Doodle Borders */
+.sketch-box {
+  border: 2px solid #1e293b;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
 }
 
-.glass-panel-hover:hover {
-  background: rgba(255, 255, 255, 0.85);
-  border-color: rgba(255, 255, 255, 1);
-  box-shadow: 0 14px 40px 0 rgba(31, 38, 135, 0.09), inset 0 0 0 1px rgba(255, 255, 255, 0.8);
-  transform: translateY(-2px);
+.sketch-box-thick {
+  border: 2.5px solid #1e293b;
+  border-radius: 255px 18px 225px 18px/18px 225px 18px 255px;
 }
 
-.glass-pill {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+.sketch-box-sm {
+  border: 1.5px solid #1e293b;
+  border-radius: 255px 10px 225px 10px/10px 225px 10px 255px;
 }
 
-.glass-nav {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+.sketch-box-dashed {
+  border: 2px dashed #475569;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
 }
 
-/* Subtle background glowing ambient orbs */
-.ambient-orb {
-  position: absolute;
+/* Hand-Drawn Solid Offset Shadows */
+.doodle-shadow {
+  box-shadow: 3px 3px 0px 0px #1e293b;
+}
+
+.doodle-shadow-sm {
+  box-shadow: 2px 2px 0px 0px #1e293b;
+}
+
+.doodle-shadow-lg {
+  box-shadow: 5px 5px 0px 0px #1e293b;
+}
+
+.doodle-shadow-hover {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.doodle-shadow-hover:hover {
+  transform: translate(-2px, -2px) rotate(-0.5deg);
+  box-shadow: 6px 6px 0px 0px #1e293b;
+}
+
+.doodle-shadow-hover:active {
+  transform: translate(2px, 2px) rotate(0deg);
+  box-shadow: 1px 1px 0px 0px #1e293b;
+}
+
+/* Highlighter Marker Effects */
+.marker-yellow {
+  background: linear-gradient(104deg, rgba(254, 240, 138, 0) 1%, rgba(254, 240, 138, 0.8) 3%, rgba(254, 240, 138, 0.75) 95%, rgba(254, 240, 138, 0) 99%);
+  padding: 0.1em 0.35em;
+  border-radius: 4px 10px 6px 8px;
+  display: inline-block;
+}
+
+.marker-blue {
+  background: linear-gradient(104deg, rgba(186, 230, 253, 0) 1%, rgba(186, 230, 253, 0.8) 3%, rgba(186, 230, 253, 0.75) 95%, rgba(186, 230, 253, 0) 99%);
+  padding: 0.1em 0.35em;
+  border-radius: 6px 8px 5px 12px;
+  display: inline-block;
+}
+
+.marker-pink {
+  background: linear-gradient(104deg, rgba(251, 207, 232, 0) 1%, rgba(251, 207, 232, 0.8) 3%, rgba(251, 207, 232, 0.75) 95%, rgba(251, 207, 232, 0) 99%);
+  padding: 0.1em 0.35em;
+  border-radius: 8px 4px 10px 5px;
+  display: inline-block;
+}
+
+/* Washi Tape Strip */
+.washi-tape {
+  background: rgba(254, 240, 138, 0.65);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transform: rotate(-2deg);
+  border-left: 2px dashed rgba(202, 138, 4, 0.4);
+  border-right: 2px dashed rgba(202, 138, 4, 0.4);
+}
+
+.washi-tape-blue {
+  background: rgba(186, 230, 253, 0.7);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transform: rotate(1.5deg);
+  border-left: 2px dashed rgba(59, 130, 246, 0.4);
+  border-right: 2px dashed rgba(59, 130, 246, 0.4);
+}
+
+/* Scribble SVG animation */
+@keyframes scribble-draw {
+  0% {
+    stroke-dashoffset: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.scribble-animate {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: scribble-draw var(--animation-duration, 1.2s) cubic-bezier(0.4, 0, 0.2, 1) var(--animation-delay, 1s) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scribble-animate {
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+}
+
+/* Notebook hole punches */
+.hole-punch {
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  filter: blur(90px);
+  background: #e2dcd0;
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+/* ========================================================================= */
+/* THEATRICAL SLOW-MO PAPER CRUMPLE & PARABOLIC TOSS VIEW TRANSITION         */
+/* ========================================================================= */
+
+/* Group container configuration */
+::view-transition-group(root) {
+  animation-duration: 2.0s;
+  animation-timing-function: cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+::view-transition-image-pair(root) {
+  isolation: isolate;
+}
+
+/* Outgoing Page: Jagged Multi-Stage Crunch into ~1-2 inch Center Ball, then Parabolic Toss */
+@keyframes paper-crumple-theatrical {
+  /* --- PHASE 1: Initial resistance & tension (0% - 14%) --- */
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg) skew(0deg, 0deg);
+    opacity: 1;
+    filter: contrast(100%) brightness(100%) drop-shadow(0 0 0 rgba(0,0,0,0));
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+  14% {
+    transform: translate(0, 0) scale(0.86) rotate(3.5deg) skew(3deg, -2deg);
+    filter: contrast(118%) brightness(96%) drop-shadow(0 8px 20px rgba(0,0,0,0.18));
+    clip-path: polygon(3% 1%, 98% 4%, 94% 96%, 4% 95%);
+  }
+
+  /* --- PHASE 2: Sudden violent inward crunch (14% - 32%) --- */
+  22% {
+    transform: translate(0, 0) scale(0.70) rotate(-7deg) skew(-7deg, 6deg);
+    filter: contrast(140%) brightness(90%) drop-shadow(0 15px 30px rgba(0,0,0,0.28));
+    clip-path: polygon(10% 7%, 90% 3%, 96% 89%, 6% 93%);
+  }
+  32% {
+    transform: translate(0, 0) scale(0.52) rotate(14deg) skew(11deg, -9deg);
+    filter: contrast(165%) brightness(84%) drop-shadow(0 20px 38px rgba(0,0,0,0.38));
+    clip-path: polygon(18% 12%, 84% 8%, 90% 84%, 12% 88%);
+  }
+
+  /* --- PHASE 3: Heavy crush down to a 1-2 inch paper ball in center (32% - 56%) --- */
+  44% {
+    transform: translate(0, 0) scale(0.30) rotate(-18deg) skew(-14deg, 12deg);
+    filter: contrast(200%) brightness(78%) drop-shadow(0 25px 45px rgba(0,0,0,0.48));
+    clip-path: polygon(25% 18%, 78% 14%, 84% 78%, 18% 82%);
+  }
+  56% {
+    /* Tight, crumpled 1-2 inch ball dead-center */
+    transform: translate(0, 0) scale(0.09) rotate(48deg) skew(12deg, -8deg);
+    opacity: 1;
+    filter: contrast(260%) brightness(72%) drop-shadow(0 30px 60px rgba(0,0,0,0.65));
+    clip-path: polygon(30% 16%, 74% 12%, 90% 46%, 76% 84%, 32% 90%, 10% 56%);
+  }
+
+  /* --- PHASE 4: Brief hesitation / ready for throw (56% - 62%) --- */
+  62% {
+    transform: translate(-1vw, 2vh) scale(0.085) rotate(60deg);
+    opacity: 1;
+    filter: contrast(270%) brightness(70%) drop-shadow(0 30px 60px rgba(0,0,0,0.7));
+    clip-path: polygon(28% 18%, 76% 10%, 92% 44%, 74% 86%, 30% 88%, 12% 54%);
+  }
+
+  /* --- PHASE 5: Parabolic toss off-screen (62% - 100%) --- */
+  /* Upward launch along parabolic curve */
+  74% {
+    transform: translate(16vw, -26vh) scale(0.08) rotate(190deg);
+    opacity: 0.98;
+    filter: contrast(280%) brightness(65%) drop-shadow(0 35px 70px rgba(0,0,0,0.6));
+  }
+  /* Parabolic Apex */
+  84% {
+    transform: translate(42vw, -30vh) scale(0.07) rotate(360deg);
+    opacity: 0.85;
+    filter: contrast(290%) brightness(60%);
+  }
+  /* Downward accelerated drop */
+  93% {
+    transform: translate(72vw, 15vh) scale(0.05) rotate(560deg);
+    opacity: 0.55;
+  }
+  /* Out of screen at bottom right */
+  100% {
+    transform: translate(105vw, 85vh) scale(0.02) rotate(740deg);
+    opacity: 0;
+    filter: contrast(300%) brightness(40%);
+  }
+}
+
+/* Incoming Page: Starts small/folded behind, shakes out creases, and lands flat */
+@keyframes paper-unfold-theatrical {
+  0% {
+    transform: scale(0.55) rotate(-6deg) skew(-5deg) translateY(-50px);
+    opacity: 0;
+    filter: blur(4px) contrast(140%) brightness(90%);
+    clip-path: polygon(14% 10%, 86% 14%, 82% 86%, 18% 82%);
+  }
+  40% {
+    transform: scale(0.96) rotate(2deg) skew(1.5deg) translateY(8px);
+    opacity: 0.9;
+    filter: blur(1px) contrast(115%) brightness(98%);
+    clip-path: polygon(3% 2%, 97% 3%, 98% 97%, 2% 98%);
+  }
+  75% {
+    transform: scale(1.02) rotate(-0.5deg) skew(0deg) translateY(0);
+    opacity: 1;
+    filter: blur(0px) contrast(105%) brightness(100%);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+  100% {
+    transform: scale(1) rotate(0deg) translateY(0);
+    opacity: 1;
+    filter: contrast(100%) brightness(100%);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+}
+
+/* Apply theatrical timing and layering */
+::view-transition-old(root) {
+  animation: 1.85s cubic-bezier(0.2, 0.05, 0.35, 1) both paper-crumple-theatrical;
+  transform-origin: center center;
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: visible;
   pointer-events: none;
-  z-index: 0;
-  opacity: 0.45;
+}
+
+::view-transition-new(root) {
+  animation: 0.85s cubic-bezier(0.16, 1, 0.3, 1) 1.05s both paper-unfold-theatrical;
+  transform-origin: center center;
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 }

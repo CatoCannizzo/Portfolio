@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { Card, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -9,48 +9,62 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
-import { ArrowUpRight } from 'lucide-react';
+import { DoodleUnderline, DoodleTape, DoodleStar } from '@/components/Doodles';
+import { ArrowUpRight, BookOpen } from 'lucide-react';
+import { DoodleCircle } from '@/components/Doodles';
 
-interface Project {
+export interface Project {
   id: string;
+  slug: string;
   title: string;
   category: string;
   description: string;
   details: string;
   tags: string[];
   metrics?: string;
+  tapeColor?: 'yellow' | 'blue' | 'pink';
+  rotationClass?: string;
   link: string;
 }
 
-const projects: Project[] = [
+export const projectsData: Project[] = [
   {
     id: '1',
+    slug: 'aura-design-system',
     title: 'Aura Design System',
     category: 'Component Library',
-    description: 'A ultra-lightweight glassmorphic component framework for React and Astro apps.',
-    details: 'Designed and built an enterprise-grade component library emphasizing light-mode glassmorphism, accessibility (WCAG AAA), and zero-runtime CSS overhead.',
-    tags: ['React', 'TypeScript', 'Tailwind CSS'],
+    description: 'A tactile lightweight hand-crafted UI system for React & Astro applications.',
+    details: 'Designed and engineered an accessible component system emphasizing tactile paper aesthetics, low runtime CSS overhead, and intuitive token hierarchy.',
+    tags: ['React', 'TypeScript', 'Tailwind'],
     metrics: '99/100 Lighthouse score',
+    tapeColor: 'yellow',
+    rotationClass: 'rotate-[-1deg] hover:rotate-0',
     link: 'https://github.com',
   },
   {
     id: '2',
+    slug: 'vortex-analytics',
     title: 'Vortex Analytics Engine',
-    category: 'SaaS Dashboard',
-    description: 'Real-time telemetry dashboard with minimal clutter and instant load times.',
-    details: 'Architected data visualization widgets and real-time streaming charts with minimal icon clutter, focused on high visual clarity for financial metrics.',
+    category: 'SaaS Telemetry',
+    description: 'High-frequency telemetry dashboard with minimal clutter and instant load times.',
+    details: 'Architected real-time streaming charts and lightweight metric cards, cutting rendering overhead by 40% using WebSockets and virtualized grids.',
     tags: ['Astro', 'React', 'WebSockets'],
     metrics: '< 100ms TTI',
+    tapeColor: 'blue',
+    rotationClass: 'rotate-[1deg] hover:rotate-0',
     link: 'https://github.com',
   },
   {
     id: '3',
+    slug: 'lumina-studio',
     title: 'Lumina Studio Workspace',
-    category: 'Web Application',
-    description: 'Minimalist Markdown editor and knowledge management workspace for creators.',
-    details: 'Features distraction-free writing UI, offline storage via IndexedDB, and clean glass export previews.',
+    category: 'Notes & Web App',
+    description: 'Minimalist Markdown notepad and knowledge workspace for creators.',
+    details: 'Features distraction-free editor, offline local-first sync via IndexedDB, and clean export mechanisms with typography presets.',
     tags: ['TypeScript', 'Astro', 'IndexedDB'],
     metrics: '15k active users',
+    tapeColor: 'pink',
+    rotationClass: 'rotate-[-0.5deg] hover:rotate-0',
     link: 'https://github.com',
   },
 ];
@@ -59,57 +73,92 @@ export const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
-    <section id="projects" className="py-16 md:py-24 px-6 max-w-5xl mx-auto">
+    <section id="projects" className="py-16 md:py-24 px-6 sm:pl-32 sm:pr-8 max-w-5xl mx-auto">
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
         <div>
-          <span className="text-xs font-semibold uppercase tracking-widest text-slate-400 block mb-2">
-            Selected Work
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-semibold text-slate-900 tracking-tight">
-            Featured Projects
-          </h2>
+          <div className="flex items-center gap-2 mb-2">
+            
+            <span className="font-sketch text-xs uppercase tracking-widest text-slate-500 font-bold">
+              Folder 01 // Selected Work
+            </span>
+            <DoodleStar size={14} color="#f59e0b" />
+          </div>
+          <div className="relative inline-block">
+            <DoodleCircle color="#f43f5e" />
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight font-sans">
+              Featured Projects
+            </h2>
+            <DoodleUnderline color="#3b82f6" className="absolute -bottom-2 left-0 w-full" />
+          </div>
         </div>
-        <p className="text-sm text-slate-500 max-w-xs leading-relaxed">
-          Focusing on performance, minimal UI aesthetics, and clean user experience.
+        <p className="font-hand text-lg text-slate-600 max-w-xs leading-snug">
+          📌 "Click any project card to preview or open full case study template!"
         </p>
       </div>
 
       {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {projects.map((project) => (
-          <Card
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
+        {projectsData.map((project) => (
+          <div
             key={project.id}
-            className="cursor-pointer group flex flex-col justify-between"
-            onClick={() => setSelectedProject(project)}
+            className={`relative group transition-all duration-300 ${project.rotationClass}`}
           >
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-medium text-slate-400">
-                  {project.category}
-                </span>
-                <span className="text-xs font-medium text-slate-400 group-hover:text-slate-900 transition-colors flex items-center gap-0.5">
-                  Details <ArrowUpRight className="h-3 w-3" />
-                </span>
-              </div>
-              <CardTitle className="mb-2 group-hover:text-slate-700 transition-colors">
-                {project.title}
-              </CardTitle>
-              <CardDescription className="mb-6">
-                {project.description}
-              </CardDescription>
+            {/* Top Washi Tape Sticker on Card */}
+            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-20">
+              <DoodleTape variant={project.tapeColor} className="w-20 h-5" />
             </div>
 
-            <div>
-              <div className="flex flex-wrap gap-1.5 pt-4 border-t border-slate-200/50">
-                {project.tags.map((tag) => (
-                  <Badge key={tag} variant="glass" className="text-[11px] px-2.5 py-0.5">
-                    {tag}
-                  </Badge>
-                ))}
+            <Card className="h-full flex flex-col justify-between doodle-shadow-hover hover:border-slate-900 bg-white">
+              <div
+                className="cursor-pointer"
+                onClick={() => setSelectedProject(project)}
+              >
+                <div className="flex items-center justify-between mb-3 pt-2">
+                  <span className="font-sketch text-xs font-bold text-slate-500">
+                    {project.category}
+                  </span>
+                  <span className="font-sketch text-xs font-bold text-slate-500 group-hover:text-slate-900 flex items-center gap-0.5">
+                    Quick View <ArrowUpRight className="h-3 w-3" />
+                  </span>
+                </div>
+                <CardTitle className="mb-2 group-hover:text-blue-600 transition-colors">
+                  {project.title}
+                </CardTitle>
+                <CardDescription className="mb-6 font-sans">
+                  {project.description}
+                </CardDescription>
               </div>
-            </div>
-          </Card>
+
+              <div>
+                <div className="flex flex-wrap gap-1.5 pt-4 border-t border-dashed border-slate-300 mb-4">
+                  {project.tags.map((tag) => (
+                    <Badge
+                      key={tag}
+                      variant={
+                        project.tapeColor === 'blue'
+                          ? 'blue'
+                          : project.tapeColor === 'pink'
+                          ? 'pink'
+                          : 'yellow'
+                      }
+                    >
+                      #{tag}
+                    </Badge>
+                  ))}
+                </div>
+
+                {/* Direct Link to Project Template Page */}
+                <a
+                  href={`/projects/${project.slug}`}
+                  className="w-full inline-flex items-center justify-center gap-2 py-2 px-3 bg-yellow-100 hover:bg-yellow-200 sketch-box-sm font-sketch text-xs font-bold text-slate-900 hover:rotate-[-0.5deg] transition-all"
+                >
+                  <BookOpen className="h-3.5 w-3.5" />
+                  <span>Open Page Notes (Crumple) →</span>
+                </a>
+              </div>
+            </Card>
+          </div>
         ))}
       </div>
 
@@ -118,44 +167,51 @@ export const Projects: React.FC = () => {
         {selectedProject && (
           <DialogContent>
             <DialogHeader>
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1">
-                {selectedProject.category}
-              </span>
-              <DialogTitle className="text-2xl font-semibold text-slate-900 mb-2">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="font-sketch text-xs font-bold uppercase tracking-wider text-slate-500">
+                  {selectedProject.category}
+                </span>
+                <span className="font-hand text-sm text-rose-500 font-bold">• Project Notes</span>
+              </div>
+              <DialogTitle className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2 font-sans">
                 {selectedProject.title}
               </DialogTitle>
-              <DialogDescription className="text-base text-slate-600 mb-4">
+              <DialogDescription className="text-base text-slate-700 mb-4 font-sans leading-relaxed">
                 {selectedProject.details}
               </DialogDescription>
             </DialogHeader>
 
             <div className="space-y-4 my-2">
               {selectedProject.metrics && (
-                <div className="glass-panel p-3.5 rounded-xl border-slate-200/70 flex items-center justify-between text-xs">
-                  <span className="text-slate-500 font-medium">Highlight Metric</span>
-                  <span className="font-semibold text-slate-900">{selectedProject.metrics}</span>
+                <div className="bg-yellow-50 sketch-box-sm p-3.5 flex items-center justify-between text-xs">
+                  <span className="font-sketch font-bold text-slate-600">Metric Highlight</span>
+                  <span className="font-mono font-bold text-slate-900 marker-yellow px-2 py-0.5">
+                    {selectedProject.metrics}
+                  </span>
                 </div>
               )}
 
               <div className="flex flex-wrap gap-2">
                 {selectedProject.tags.map((tag) => (
-                  <Badge key={tag} variant="glass" className="text-xs">
-                    {tag}
+                  <Badge key={tag} variant="yellow">
+                    #{tag}
                   </Badge>
                 ))}
               </div>
             </div>
 
-            <div className="pt-4 flex items-center justify-end gap-3 border-t border-slate-200/60">
-              <Button variant="ghost" size="sm" onClick={() => setSelectedProject(null)}>
+            <div className="pt-4 flex items-center justify-between gap-3 border-t border-dashed border-slate-300">
+              <Button variant="ghost" size="sm" onClick={() => setSelectedProject(null)} className="font-sketch text-sm">
                 Close
               </Button>
-              <Button variant="default" size="sm" asChild>
-                <a href={selectedProject.link} target="_blank" rel="noopener noreferrer">
-                  <span>Visit Project</span>
-                  <ArrowUpRight className="ml-1 h-3.5 w-3.5" />
-                </a>
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button variant="doodle" size="sm" asChild className="font-sketch text-sm">
+                  <a href={`/projects/${selectedProject.slug}`} className="flex items-center gap-1.5">
+                    <span>Full Case Study Page</span>
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </a>
+                </Button>
+              </div>
             </div>
           </DialogContent>
         )}

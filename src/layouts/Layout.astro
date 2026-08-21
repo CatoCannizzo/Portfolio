@@ -1,5 +1,6 @@
 ---
 import '@/styles/globals.css';
+import { ViewTransitions } from 'astro:transitions';
 
 interface Props {
   title?: string;
@@ -7,13 +8,13 @@ interface Props {
 }
 
 const {
-  title = "Alex Morgan — Product Engineer & Portfolio",
-  description = "Minimalist light-mode glassmorphic portfolio landing page built with Astro, React, and ShadCN UI.",
+  title = "Alex Morgan — Notebook & Product Engineer Portfolio",
+  description = "A hand-drawn lined notebook portfolio landing page built with Astro, React, and ShadCN UI.",
 } = Astro.props;
 ---
 
-<!ts-html>
-<html lang="en" className="scroll-smooth">
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth bg-[#fdfbf7]">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,15 +25,25 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Plus Jakarta Sans, Caveat (Handwriting), Patrick Hand (Sketch) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Patrick+Hand&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Astro View Transitions with Custom Paper Crumple Animation -->
+    <ViewTransitions />
   </head>
-  <body className="min-h-screen bg-slate-50 text-slate-900 font-['Plus_Jakarta_Sans',sans-serif] relative overflow-x-hidden selection:bg-slate-200 selection:text-slate-900">
-    <!-- Ambient Light Backdrop Glow Blobs -->
-    <div className="fixed top-[-10%] left-[-5%] w-[500px] h-[500px] bg-gradient-to-tr from-indigo-200/40 via-sky-100/50 to-slate-100/30 rounded-full blur-[100px] pointer-events-none -z-10"></div>
-    <div className="fixed bottom-[-10%] right-[-5%] w-[600px] h-[600px] bg-gradient-to-br from-slate-200/40 via-indigo-100/30 to-slate-100/20 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+  <body class="min-h-screen notebook-paper-bg text-slate-800 font-sans relative overflow-x-hidden selection:bg-yellow-200 selection:text-slate-900">
+    <!-- Top Red Margin Header Rule -->
+    <div class="fixed top-0 left-0 right-0 h-[3px] bg-rose-500/80 z-50 shadow-sm pointer-events-none"></div>
+
+    <!-- Vertical Left Blue Margin Line -->
+    <div class="fixed top-0 bottom-0 left-6 sm:left-24 w-[2px] bg-sky-400/60 z-30 pointer-events-none"></div>
+
+    <!-- Left Notebook Hole Punches -->
+    <div class="fixed left-1.5 sm:left-8 top-28 hole-punch z-20 hidden md:block"></div>
+    <div class="fixed left-1.5 sm:left-8 top-[50vh] hole-punch z-20 hidden md:block"></div>
+    <div class="fixed left-1.5 sm:left-8 bottom-28 hole-punch z-20 hidden md:block"></div>
 
     <slot />
   </body>

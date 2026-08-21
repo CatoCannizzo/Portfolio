@@ -1,33 +1,47 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { DoodleStar } from '@/components/Doodles';
 
 export const Header: React.FC = () => {
   return (
-    <header className="sticky top-0 z-40 w-full glass-nav backdrop-blur-xl">
-      <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-40 w-full bg-[#fdfbf7]/90 backdrop-blur-md border-b-2 border-rose-400/80">
+      <div className="max-w-5xl mx-auto px-6 sm:pl-32 sm:pr-8 h-16 flex items-center justify-between">
         {/* Brand Logo / Name */}
-        <a href="#" className="group flex items-center gap-2 text-slate-900 font-semibold tracking-tight text-base hover:opacity-80 transition-opacity">
-          <span className="w-2.5 h-2.5 rounded-full bg-slate-900 inline-block transition-transform group-hover:scale-125" />
-          <span>Alex Morgan</span>
+        <a href="#" className="group flex items-center gap-2 text-slate-900 font-bold tracking-tight text-lg hover:rotate-[-1deg] transition-transform">
+          <span className="w-3 h-3 rounded-full bg-rose-500 inline-block border border-slate-900 shadow-doodle-sm" />
+          <span className="font-sans">Alex Morgan</span>
+          <span className="font-hand text-rose-500 text-lg font-bold ml-0.5 group-hover:inline-block">.notes</span>
         </a>
 
-        {/* Minimal Navigation */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-          <a href="#projects" className="hover:text-slate-900 transition-colors">
-            Projects
+        {/* Minimal Navigation styled like notebook index tabs */}
+        <nav className="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-700">
+          <a
+            href="#projects"
+            className="relative py-1 hover:text-slate-900 hover:rotate-[-1deg] transition-all group"
+          >
+            <span>Projects</span>
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-slate-900 group-hover:w-full transition-all duration-200" />
           </a>
-          <a href="#experience" className="hover:text-slate-900 transition-colors">
-            Experience
+          <a
+            href="#experience"
+            className="relative py-1 hover:text-slate-900 hover:rotate-[1deg] transition-all group"
+          >
+            <span>Experience</span>
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-slate-900 group-hover:w-full transition-all duration-200" />
           </a>
-          <a href="#contact" className="hover:text-slate-900 transition-colors">
-            Contact
+          <a
+            href="#contact"
+            className="relative py-1 hover:text-slate-900 hover:rotate-[-1deg] transition-all group"
+          >
+            <span>Contact</span>
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-slate-900 group-hover:w-full transition-all duration-200" />
           </a>
         </nav>
 
         {/* Action Button */}
         <div className="flex items-center gap-3">
-          <Button variant="default" size="sm" asChild>
-            <a href="#contact">Get in touch</a>
+          <Button variant="default" size="sm" asChild className="font-sketch text-sm tracking-wide">
+            <a href="#contact">Say Hello! ✍️</a>
           </Button>
         </div>
       </div>

@@ -1,0 +1,264 @@
+import React from 'react';
+import { cn } from '@/lib/utils';
+
+// Hand-drawn circle loop paths generator based on loop count (1, 2, 3, or 4 loops)
+const CIRCLE_LOOPS: Record<number, string> = {
+  1: 'M 28 50 C 24 20, 56 10, 100 12 C 148 14, 184 26, 178 54 C 172 82, 132 90, 92 86 C 46 82, 16 66, 24 44',
+  2: 'M 28 50 C 24 20, 56 10, 100 12 C 148 14, 184 26, 178 54 C 172 82, 132 90, 92 86 C 46 82, 16 66, 22 40 C 28 18, 62 12, 108 14 C 156 16, 186 32, 180 58 C 174 84, 126 92, 78 86 C 36 82, 16 62, 24 44',
+  3: 'M 28 50 C 24 20, 56 10, 100 12 C 148 14, 184 26, 178 54 C 172 82, 132 90, 92 86 C 46 82, 16 66, 22 40 C 28 18, 62 12, 108 14 C 156 16, 186 32, 180 58 C 174 84, 126 92, 84 88 C 36 84, 14 62, 20 36 C 26 14, 68 8, 114 10 C 162 12, 188 30, 182 56 C 176 80, 124 88, 76 84 C 38 80, 18 62, 24 44',
+  4: 'M 28 50 C 24 20, 56 10, 100 12 C 148 14, 184 26, 178 54 C 172 82, 132 90, 92 86 C 46 82, 16 66, 22 40 C 28 18, 62 12, 108 14 C 156 16, 186 32, 180 58 C 174 84, 126 92, 84 88 C 36 84, 14 62, 20 36 C 26 14, 68 8, 114 10 C 162 12, 188 30, 182 56 C 176 80, 124 88, 76 84 C 38 80, 18 62, 24 44 C 30 20, 72 12, 118 14 C 166 16, 190 34, 184 60 C 176 84, 120 90, 72 84 C 32 80, 16 58, 26 40',
+};
+
+// Hand-drawn squiggly underline paths generator based on line count (1, 2, or 3 lines)
+const UNDERLINE_LINES: Record<number, string> = {
+  1: 'M3 12 C30 16, 60 7, 90 13 C120 19, 150 9, 197 14',
+  2: 'M3 12 C30 16, 60 7, 90 13 C120 19, 150 9, 197 14 M5 16 C35 19, 65 11, 100 16 C135 21, 165 12, 192 17',
+  3: 'M3 10 C30 14, 60 5, 90 11 C120 17, 150 7, 197 12 M5 14 C35 17, 65 9, 100 14 C135 19, 165 10, 192 15 M4 18 C32 20, 68 13, 105 18 C140 22, 170 14, 195 18',
+};
+
+// Hand-drawn sketchy circle that loops around content with natural organic jitter
+export const DoodleCircle: React.FC<{
+  className?: string;
+  color?: string;
+  animate?: boolean;
+  delay?: number | string;
+  loops?: 1 | 2 | 3 | 4;
+}> = ({ className, color = '#f43f5e', animate = true, delay = '1s', loops = 3 }) => {
+  const pathD = CIRCLE_LOOPS[loops] || CIRCLE_LOOPS[3];
+  const delayStr = typeof delay === 'number' ? `${delay}s` : delay;
+
+  return (
+    <svg
+      viewBox="0 0 200 100"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="none"
+      className={cn(
+        'absolute pointer-events-none -inset-3 w-[calc(100%+1.5rem)] h-[calc(100%+1.5rem)] overflow-visible z-10',
+        className
+      )}
+      style={{
+        '--animation-delay': delayStr,
+      } as React.CSSProperties}
+    >
+      <path
+        d={pathD}
+        stroke={color}
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        vectorEffect="non-scaling-stroke"
+        pathLength={1}
+        className={animate ? 'scribble-animate' : ''}
+      />
+    </svg>
+  );
+};
+
+// Hand-drawn squiggly underline
+export const DoodleUnderline: React.FC<{
+  className?: string;
+  color?: string;
+  width?: number;
+  animate?: boolean;
+  delay?: number | string;
+  lines?: 1 | 2 | 3;
+}> = ({ className, color = '#f43f5e', width = 160, animate = true, delay = '1s', lines = 2 }) => {
+  const pathD = UNDERLINE_LINES[lines] || UNDERLINE_LINES[2];
+  const delayStr = typeof delay === 'number' ? `${delay}s` : delay;
+
+  return (
+    <svg
+      viewBox="0 0 200 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn('w-full h-4 overflow-visible', className)}
+      preserveAspectRatio="none"
+      style={{
+        '--animation-delay': delayStr,
+      } as React.CSSProperties}
+    >
+      <path
+        d={pathD}
+        stroke={color}
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        pathLength={1}
+        className={animate ? 'scribble-animate' : ''}
+      />
+    </svg>
+  );
+};
+
+// Hand-drawn curved arrow
+export const DoodleArrow: React.FC<{
+  className?: string;
+  color?: string;
+  delay?: number | string;
+}> = ({ className, color = '#1e293b', delay = '1s' }) => {
+  const delayStr = typeof delay === 'number' ? `${delay}s` : delay;
+
+  return (
+    <svg
+      viewBox="0 0 80 60"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn('w-16 h-12 overflow-visible pointer-events-none', className)}
+      style={{
+        '--animation-delay': delayStr,
+      } as React.CSSProperties}
+    >
+      <path
+        d="M10 50 C25 48, 55 45, 65 20 C68 12, 60 8, 52 14"
+        stroke={color}
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M48 20 L68 15 L66 32"
+        stroke={color}
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+// Hand-drawn star / sparkle doodle
+export const DoodleStar: React.FC<{
+  className?: string;
+  color?: string;
+  size?: number;
+}> = ({ className, color = '#eab308', size = 24 }) => {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn('inline-block pointer-events-none animate-float-gentle', className)}
+    >
+      <path
+        d="M12 2 C12 7, 16 11, 21 12 C16 13, 12 17, 12 22 C12 17, 8 13, 3 12 C8 11, 12 7, 12 2 Z"
+        fill={color}
+        stroke="#1e293b"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+// Hand-drawn little paper clip
+export const DoodlePaperclip: React.FC<{
+  className?: string;
+}> = ({ className }) => {
+  return (
+    <svg
+      viewBox="0 0 32 48"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn('w-6 h-10 overflow-visible pointer-events-none', className)}
+    >
+      <path
+        d="M10 16 V32 C10 37 14 41 19 41 C24 41 28 37 28 32 V12 C28 6 22 1 16 1 C10 1 4 6 4 12 V34 C4 42 12 47 20 47 C28 47 31 43 31 38"
+        stroke="#64748b"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+// Hand-drawn Scribble Checkmark
+export const DoodleCheck: React.FC<{
+  className?: string;
+  checked?: boolean;
+  animate?: boolean;
+  delay?: number | string;
+}> = ({ className, checked = true, animate = true, delay = '0.3s' }) => {
+  if (!checked) return null;
+  const delayStr = typeof delay === 'number' ? `${delay}s` : delay;
+
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn('w-5 h-5 overflow-visible', className)}
+      style={{
+        '--animation-delay': delayStr,
+      } as React.CSSProperties}
+    >
+      <path
+        d="M4 12 L9 18 L20 6 M9 18 L19 8"
+        stroke="#16a34a"
+        strokeWidth="2.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        pathLength={1}
+        className={animate ? 'scribble-animate' : ''}
+      />
+    </svg>
+  );
+};
+
+// Hand-drawn Scribble Strikethrough
+export const DoodleStrike: React.FC<{
+  className?: string;
+  color?: string;
+  animate?: boolean;
+  delay?: number | string;
+}> = ({ className, color = '#ef4444', animate = true, delay = '0.3s' }) => {
+  const delayStr = typeof delay === 'number' ? `${delay}s` : delay;
+
+  return (
+    <svg
+      viewBox="0 0 100 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn('w-full h-3 overflow-visible pointer-events-none', className)}
+      preserveAspectRatio="none"
+      style={{
+        '--animation-delay': delayStr,
+      } as React.CSSProperties}
+    >
+      <path
+        d="M2 7 C25 4, 55 9, 98 5 M10 8 C40 5, 70 8, 92 6"
+        stroke={color}
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        pathLength={1}
+        className={animate ? 'scribble-animate' : ''}
+      />
+    </svg>
+  );
+};
+
+// Hand-drawn Washi Tape Element
+export const DoodleTape: React.FC<{
+  className?: string;
+  variant?: 'yellow' | 'blue' | 'pink';
+}> = ({ className, variant = 'yellow' }) => {
+  const bgClass =
+    variant === 'blue'
+      ? 'washi-tape-blue'
+      : variant === 'pink'
+      ? 'bg-rose-200/70 border-l-2 border-r-2 border-dashed border-rose-400/40'
+      : 'washi-tape';
+
+  return (
+    <div
+      className={cn(
+        'h-6 w-24 rounded-sm pointer-events-none opacity-90',
+        bgClass,
+        className
+      )}
+    />
+  );
+};
