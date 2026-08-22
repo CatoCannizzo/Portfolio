@@ -16,6 +16,37 @@ export default {
         hand: ['"Caveat"', 'cursive'],
         sketch: ['"Patrick Hand"', 'cursive'],
       },
+      fontSize: {
+        '0.25': ['0.5rem', { lineHeight: '1rem' }],      /* 8px (0.25 lines, 16px line-height) */
+        '0.375': ['0.75rem', { lineHeight: '1rem' }],    /* 12px (0.375 lines, 16px line-height) */
+        '0.5': ['1rem', { lineHeight: '2rem' }],         /* 16px (0.5 lines, 32px / 1 line-height) */
+        '0.75': ['1.5rem', { lineHeight: '2rem' }],      /* 24px (0.75 lines, 32px / 1 line-height) */
+        '1': ['2rem', { lineHeight: '2rem' }],           /* 32px (1 line, 32px / 1 line-height) */
+        '1.25': ['2.5rem', { lineHeight: '4rem' }],      /* 40px (1.25 lines, 64px / 2 line-height) */
+        '1.5': ['3rem', { lineHeight: '4rem' }],         /* 48px (1.5 lines, 64px / 2 line-height) */
+        '2': ['4rem', { lineHeight: '4rem' }],           /* 64px (2 lines, 64px / 2 line-height) */
+        '2.5': ['5rem', { lineHeight: '6rem' }],         /* 80px (2.5 lines, 96px / 3 line-height) */
+        '3': ['6rem', { lineHeight: '6rem' }],           /* 96px (3 lines, 96px / 3 line-height) */
+      },
+      gridAutoRows: {
+        'line': '32px',
+        'line-0.5': '16px',
+        'line-2': '64px',
+      },
+      spacing: {
+        'line-0.25': '8px',
+        'line-0.5': '16px',
+        'line-0.75': '24px',
+        'line-1': '32px',
+        'line-1.5': '48px',
+        'line-2': '64px',
+        'line-2.5': '80px',
+        'line-3': '96px',
+        'line-4': '128px',
+        'line-5': '160px',
+        'line-6': '192px',
+        'line-8': '256px',
+      },
       colors: {
         paper: {
           DEFAULT: "#fdfbf7",

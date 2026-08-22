@@ -53,7 +53,12 @@
   }
 }
 
-/* Notebook Ruled Paper Lines */
+/* Notebook Ruled Paper Lines & Grid */
+:root {
+  --notebook-line: 32px;
+  --baseline-offset: 5px;
+}
+
 .notebook-paper-bg {
   background-color: #fdfbf7;
   background-image: repeating-linear-gradient(
@@ -64,6 +69,29 @@
     rgba(96, 165, 250, 0.38) 32px
   );
   background-size: 100% 32px;
+}
+
+/* Master Notebook Grid Layout */
+.notebook-grid {
+  display: grid;
+  grid-auto-rows: minmax(32px, auto);
+}
+
+/* Optical Baseline Calibration: Align font descenders cleanly with ruled lines */
+.align-to-rule {
+  transform: translateY(var(--baseline-offset, 5px));
+}
+
+.font-hand.align-to-rule {
+  --baseline-offset: 4px;
+}
+
+.font-sans.align-to-rule {
+  --baseline-offset: 5px;
+}
+
+.font-sketch.align-to-rule {
+  --baseline-offset: 6px;
 }
 
 /* Sketch & Doodle Borders */
@@ -166,7 +194,11 @@
 .scribble-animate {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: scribble-draw var(--animation-duration, 1.2s) cubic-bezier(0.4, 0, 0.2, 1) var(--animation-delay, 1s) forwards;
+  animation-name: scribble-draw;
+  animation-duration: var(--animation-duration, 1.2s);
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-delay: var(--animation-delay, 1s);
+  animation-fill-mode: forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {

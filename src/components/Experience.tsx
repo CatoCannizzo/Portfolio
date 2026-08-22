@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { DoodleUnderline, DoodleCheck, DoodleTape, DoodleStar } from '@/components/Doodles';
+import { DoodleUnderline, DoodleCheck, DoodleTape } from '@/components/Doodles';
 
 interface Role {
   period: string;
@@ -54,25 +54,24 @@ export const Experience: React.FC = () => {
   };
 
   return (
-    <section id="experience" className="py-16 md:py-24 px-6 sm:pl-32 sm:pr-8 max-w-5xl mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+    <section id="experience" className="py-line-2 md:py-line-3 px-6 sm:pl-32 sm:pr-8 max-w-5xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-line-1.5">
         {/* Left Column: Interactive Skills Checklist */}
         <div className="md:col-span-5 flex flex-col justify-between">
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="font-sketch text-xs uppercase tracking-widest text-slate-500 font-bold">
+            <div className="flex items-center gap-2 mb-line-0.5">
+              <span className="font-sketch text-0.375 uppercase tracking-widest text-slate-500 font-bold">
                 Page 02 // Capabilities
               </span>
-              <DoodleStar size={14} color="#f59e0b" />
             </div>
-            <div className="relative inline-block mb-4">
-              <h2 className="text-3xl font-bold text-slate-900 tracking-tight font-sans">
+            <div className="relative inline-block mb-line-0.5">
+              <h2 className="text-1 font-bold text-slate-900 tracking-tight font-sans">
                 Core Stack &amp; Skills
               </h2>
               <DoodleUnderline color="#f43f5e" className="absolute -bottom-2 left-0 w-full" />
             </div>
             
-            <p className="font-hand text-base text-slate-600 mb-6">
+            <p className="font-hand text-0.5 text-slate-600 mb-line-1">
               ✏️ <span className="font-bold">Interactive Checklist:</span> Click any skill to toggle checkmark!
             </p>
 
@@ -88,7 +87,7 @@ export const Experience: React.FC = () => {
                     <DoodleCheck checked={skill.checked} />
                   </div>
                   <span
-                    className={`font-sketch text-sm font-bold text-slate-800 transition-all ${
+                    className={`font-sketch text-0.5 font-bold text-slate-800 transition-all ${
                       skill.checked ? '' : 'text-slate-400 line-through'
                     }`}
                   >
@@ -100,12 +99,12 @@ export const Experience: React.FC = () => {
           </div>
 
           {/* Sticky Note Quote */}
-          <div className="hidden md:block relative mt-8">
+          <div className="hidden md:block relative mt-line-1">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
               <DoodleTape variant="yellow" className="w-16 h-4" />
             </div>
             <div className="bg-yellow-100 sketch-box p-4 rotate-[-1.5deg] doodle-shadow-sm">
-              <p className="font-hand text-base text-slate-800 leading-snug">
+              <p className="font-hand text-0.5 text-slate-800">
                 "Writing clean code is like good handwriting: it takes deliberate practice and clarity of thought."
               </p>
             </div>
@@ -113,36 +112,36 @@ export const Experience: React.FC = () => {
         </div>
 
         {/* Right Column: Work Journal Timeline */}
-        <div className="md:col-span-7 space-y-4">
-          <div className="flex items-center justify-between mb-2">
-            <span className="font-sketch text-xs uppercase tracking-widest text-slate-500 font-bold">
+        <div className="md:col-span-7 space-y-line-0.5">
+          <div className="flex items-center justify-between mb-line-0.5">
+            <span className="font-sketch text-0.375 uppercase tracking-widest text-slate-500 font-bold">
               Work Journal Timeline
             </span>
-            <span className="font-hand text-sm text-slate-500">2020 — 2026</span>
+            <span className="font-hand text-0.5 text-slate-500">2020 — 2026</span>
           </div>
 
-          <div className="space-y-5">
+          <div className="space-y-line-0.5">
             {roles.map((item, index) => (
               <Card
                 key={index}
                 className="p-5 doodle-shadow-hover bg-white hover:bg-[#fffdfa]"
               >
                 <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-1 gap-1">
-                  <h3 className="text-base font-bold text-slate-900 font-sans">
+                  <h3 className="text-0.5 font-bold text-slate-900 font-sans">
                     {item.role}{' '}
-                    <span className="font-hand text-base font-bold text-blue-600">
+                    <span className="font-hand text-0.5 font-bold text-blue-600">
                       @ {item.company}
                     </span>
                   </h3>
-                  <span className="font-mono text-xs font-semibold text-slate-500 marker-yellow px-1.5">
+                  <span className="font-mono text-0.375 font-semibold text-slate-500 marker-yellow px-1.5">
                     {item.period}
                   </span>
                 </div>
-                <p className="text-sm text-slate-600 leading-relaxed font-sans mt-2 mb-3">
+                <p className="text-0.5 text-slate-600 font-sans mt-2 mb-3">
                   {item.summary}
                 </p>
                 <div className="pt-2 border-t border-dashed border-slate-200">
-                  <span className="font-sketch text-xs text-slate-500 font-bold">
+                  <span className="font-sketch text-0.375 text-slate-500 font-bold">
                     Highlights: <span className="text-slate-800">{item.highlight}</span>
                   </span>
                 </div>

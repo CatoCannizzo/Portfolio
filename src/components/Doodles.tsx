@@ -23,7 +23,15 @@ export const DoodleCircle: React.FC<{
   animate?: boolean;
   delay?: number | string;
   loops?: 1 | 2 | 3 | 4;
-}> = ({ className, color = '#f43f5e', animate = true, delay = '1s', loops = 3 }) => {
+  strokeWidth?: number | string;
+}> = ({
+  className,
+  color = '#f43f5e',
+  animate = true,
+  delay = '1s',
+  loops = 3,
+  strokeWidth = '3',
+}) => {
   const pathD = CIRCLE_LOOPS[loops] || CIRCLE_LOOPS[3];
   const delayStr = typeof delay === 'number' ? `${delay}s` : delay;
 
@@ -44,7 +52,7 @@ export const DoodleCircle: React.FC<{
       <path
         d={pathD}
         stroke={color}
-        strokeWidth="2.2"
+        strokeWidth={strokeWidth}
         strokeLinecap="round"
         strokeLinejoin="round"
         vectorEffect="non-scaling-stroke"
@@ -84,6 +92,7 @@ export const DoodleUnderline: React.FC<{
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
+        vectorEffect="non-scaling-stroke"
         pathLength={1}
         className={animate ? 'scribble-animate' : ''}
       />
@@ -112,46 +121,23 @@ export const DoodleArrow: React.FC<{
       <path
         d="M10 50 C25 48, 55 45, 65 20 C68 12, 60 8, 52 14"
         stroke={color}
-        strokeWidth="2.5"
+        strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
+        vectorEffect="non-scaling-stroke"
       />
       <path
         d="M48 20 L68 15 L66 32"
         stroke={color}
-        strokeWidth="2.5"
+        strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
+        vectorEffect="non-scaling-stroke"
       />
     </svg>
   );
 };
 
-// Hand-drawn star / sparkle doodle
-export const DoodleStar: React.FC<{
-  className?: string;
-  color?: string;
-  size?: number;
-}> = ({ className, color = '#eab308', size = 24 }) => {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={cn('inline-block pointer-events-none animate-float-gentle', className)}
-    >
-      <path
-        d="M12 2 C12 7, 16 11, 21 12 C16 13, 12 17, 12 22 C12 17, 8 13, 3 12 C8 11, 12 7, 12 2 Z"
-        fill={color}
-        stroke="#1e293b"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-};
 
 // Hand-drawn little paper clip
 export const DoodlePaperclip: React.FC<{
@@ -167,9 +153,10 @@ export const DoodlePaperclip: React.FC<{
       <path
         d="M10 16 V32 C10 37 14 41 19 41 C24 41 28 37 28 32 V12 C28 6 22 1 16 1 C10 1 4 6 4 12 V34 C4 42 12 47 20 47 C28 47 31 43 31 38"
         stroke="#64748b"
-        strokeWidth="2.5"
+        strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
+        vectorEffect="non-scaling-stroke"
       />
     </svg>
   );
@@ -198,9 +185,10 @@ export const DoodleCheck: React.FC<{
       <path
         d="M4 12 L9 18 L20 6 M9 18 L19 8"
         stroke="#16a34a"
-        strokeWidth="2.8"
+        strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
+        vectorEffect="non-scaling-stroke"
         pathLength={1}
         className={animate ? 'scribble-animate' : ''}
       />
@@ -231,8 +219,9 @@ export const DoodleStrike: React.FC<{
       <path
         d="M2 7 C25 4, 55 9, 98 5 M10 8 C40 5, 70 8, 92 6"
         stroke={color}
-        strokeWidth="2.5"
+        strokeWidth="3"
         strokeLinecap="round"
+        vectorEffect="non-scaling-stroke"
         pathLength={1}
         className={animate ? 'scribble-animate' : ''}
       />

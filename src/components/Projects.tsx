@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
-import { DoodleUnderline, DoodleTape, DoodleStar } from '@/components/Doodles';
+import { DoodleUnderline, DoodleTape } from '@/components/Doodles';
 import { ArrowUpRight, BookOpen } from 'lucide-react';
 import { DoodleCircle } from '@/components/Doodles';
 
@@ -73,32 +73,31 @@ export const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
-    <section id="projects" className="py-16 md:py-24 px-6 sm:pl-32 sm:pr-8 max-w-5xl mx-auto">
+    <section id="projects" className="py-line-2 md:py-line-3 px-6 sm:pl-32 sm:pr-8 max-w-5xl mx-auto">
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-line-1.5 gap-4">
         <div>
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex items-center gap-2 mb-line-0.5">
             
-            <span className="font-sketch text-xs uppercase tracking-widest text-slate-500 font-bold">
+            <span className="font-sketch text-0.375 uppercase tracking-widest text-slate-500 font-bold">
               Folder 01 // Selected Work
             </span>
-            <DoodleStar size={14} color="#f59e0b" />
           </div>
           <div className="relative inline-block">
             <DoodleCircle color="#f43f5e" />
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight font-sans">
+            <h2 className="text-1 font-bold text-slate-900 tracking-tight font-sans">
               Featured Projects
             </h2>
             <DoodleUnderline color="#3b82f6" className="absolute -bottom-2 left-0 w-full" />
           </div>
         </div>
-        <p className="font-hand text-lg text-slate-600 max-w-xs leading-snug">
+        <p className="font-hand text-0.5 text-slate-600 max-w-xs">
           📌 "Click any project card to preview or open full case study template!"
         </p>
       </div>
 
       {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-line-1 pt-line-0.5">
         {projectsData.map((project) => (
           <div
             key={project.id}
@@ -114,24 +113,24 @@ export const Projects: React.FC = () => {
                 className="cursor-pointer"
                 onClick={() => setSelectedProject(project)}
               >
-                <div className="flex items-center justify-between mb-3 pt-2">
-                  <span className="font-sketch text-xs font-bold text-slate-500">
+                <div className="flex items-center justify-between mb-line-0.5 pt-2">
+                  <span className="font-sketch text-0.375 font-bold text-slate-500">
                     {project.category}
                   </span>
-                  <span className="font-sketch text-xs font-bold text-slate-500 group-hover:text-slate-900 flex items-center gap-0.5">
+                  <span className="font-sketch text-0.375 font-bold text-slate-500 group-hover:text-slate-900 flex items-center gap-0.5">
                     Quick View <ArrowUpRight className="h-3 w-3" />
                   </span>
                 </div>
-                <CardTitle className="mb-2 group-hover:text-blue-600 transition-colors">
+                <CardTitle className="mb-line-0.5 group-hover:text-blue-600 transition-colors">
                   {project.title}
                 </CardTitle>
-                <CardDescription className="mb-6 font-sans">
+                <CardDescription className="mb-line-1 font-sans">
                   {project.description}
                 </CardDescription>
               </div>
 
               <div>
-                <div className="flex flex-wrap gap-1.5 pt-4 border-t border-dashed border-slate-300 mb-4">
+                <div className="flex flex-wrap gap-1.5 pt-line-0.5 border-t border-dashed border-slate-300 mb-line-0.5">
                   {project.tags.map((tag) => (
                     <Badge
                       key={tag}
@@ -151,7 +150,7 @@ export const Projects: React.FC = () => {
                 {/* Direct Link to Project Template Page */}
                 <a
                   href={`/projects/${project.slug}`}
-                  className="w-full inline-flex items-center justify-center gap-2 py-2 px-3 bg-yellow-100 hover:bg-yellow-200 sketch-box-sm font-sketch text-xs font-bold text-slate-900 hover:rotate-[-0.5deg] transition-all"
+                  className="w-full inline-flex items-center justify-center gap-2 py-2 px-3 bg-yellow-100 hover:bg-yellow-200 sketch-box-sm font-sketch text-0.375 font-bold text-slate-900 hover:rotate-[-0.5deg] transition-all"
                 >
                   <BookOpen className="h-3.5 w-3.5" />
                   <span>Open Page Notes (Crumple) →</span>
@@ -168,22 +167,22 @@ export const Projects: React.FC = () => {
           <DialogContent>
             <DialogHeader>
               <div className="flex items-center gap-2 mb-1">
-                <span className="font-sketch text-xs font-bold uppercase tracking-wider text-slate-500">
+                <span className="font-sketch text-0.375 font-bold uppercase tracking-wider text-slate-500">
                   {selectedProject.category}
                 </span>
-                <span className="font-hand text-sm text-rose-500 font-bold">• Project Notes</span>
+                <span className="font-hand text-0.5 text-rose-500 font-bold">• Project Notes</span>
               </div>
-              <DialogTitle className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2 font-sans">
+              <DialogTitle className="text-1 font-bold text-slate-900 mb-2 font-sans">
                 {selectedProject.title}
               </DialogTitle>
-              <DialogDescription className="text-base text-slate-700 mb-4 font-sans leading-relaxed">
+              <DialogDescription className="text-0.5 text-slate-700 mb-4 font-sans">
                 {selectedProject.details}
               </DialogDescription>
             </DialogHeader>
 
             <div className="space-y-4 my-2">
               {selectedProject.metrics && (
-                <div className="bg-yellow-50 sketch-box-sm p-3.5 flex items-center justify-between text-xs">
+                <div className="bg-yellow-50 sketch-box-sm p-3.5 flex items-center justify-between text-0.375">
                   <span className="font-sketch font-bold text-slate-600">Metric Highlight</span>
                   <span className="font-mono font-bold text-slate-900 marker-yellow px-2 py-0.5">
                     {selectedProject.metrics}
@@ -201,11 +200,11 @@ export const Projects: React.FC = () => {
             </div>
 
             <div className="pt-4 flex items-center justify-between gap-3 border-t border-dashed border-slate-300">
-              <Button variant="ghost" size="sm" onClick={() => setSelectedProject(null)} className="font-sketch text-sm">
+              <Button variant="ghost" size="sm" onClick={() => setSelectedProject(null)} className="font-sketch text-0.5">
                 Close
               </Button>
               <div className="flex items-center gap-2">
-                <Button variant="doodle" size="sm" asChild className="font-sketch text-sm">
+                <Button variant="doodle" size="sm" asChild className="font-sketch text-0.5">
                   <a href={`/projects/${selectedProject.slug}`} className="flex items-center gap-1.5">
                     <span>Full Case Study Page</span>
                     <ArrowUpRight className="h-3.5 w-3.5" />
