@@ -10,17 +10,31 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-slate-900 text-white sketch-box doodle-shadow hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-doodle-lg transition-all",
-        doodle:
-          "bg-white text-slate-900 sketch-box doodle-shadow hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-doodle-lg hover:bg-yellow-50 transition-all",
+          "bg-yellow-200 text-slate-900 sketch-box doodle-shadow hover:bg-yellow-300 hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-doodle-lg transition-all",
         yellow:
           "bg-yellow-200 text-slate-900 sketch-box doodle-shadow hover:bg-yellow-300 hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-doodle-lg transition-all",
+        blue:
+          "bg-sky-200 text-slate-900 sketch-box doodle-shadow hover:bg-sky-300 hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-doodle-lg transition-all",
+        pink:
+          "bg-rose-200 text-slate-900 sketch-box doodle-shadow hover:bg-rose-300 hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-doodle-lg transition-all",
+        green:
+          "bg-emerald-200 text-slate-900 sketch-box doodle-shadow hover:bg-emerald-300 hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-doodle-lg transition-all",
+        paper:
+          "bg-[#f6f2e8] text-slate-900 sketch-box doodle-shadow hover:bg-[#ede7d8] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-doodle-lg transition-all",
+        white:
+          "bg-white text-slate-900 sketch-box doodle-shadow hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-doodle-lg hover:bg-yellow-50 transition-all",
+        doodle:
+          "bg-white text-slate-900 sketch-box doodle-shadow hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-doodle-lg hover:bg-yellow-50 transition-all",
         outline:
-          "border-2 border-slate-900 bg-white/80 sketch-box-sm hover:bg-slate-100 text-slate-800",
+          "border-2 border-slate-900 bg-white/90 sketch-box-sm hover:bg-yellow-50 text-slate-800 shadow-doodle-sm hover:shadow-doodle transition-all",
         ghost:
-          "hover:bg-slate-200/60 text-slate-700 hover:text-slate-900 rounded-lg",
+          "hover:bg-yellow-100/70 text-slate-700 hover:text-slate-900 rounded-lg transition-all",
         link:
           "text-slate-900 underline-offset-4 hover:underline font-hand text-0.75",
+        slate:
+          "bg-slate-900 text-white sketch-box doodle-shadow hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-doodle-lg transition-all",
+        dark:
+          "bg-slate-900 text-white sketch-box doodle-shadow hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-doodle-lg transition-all",
       },
       size: {
         default: "h-line-1.5 px-5 py-line-0.25",

@@ -3,6 +3,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { Tape } from "@/components/ui/fixture"
 
 const Dialog = DialogPrimitive.Root
 
@@ -42,7 +43,7 @@ const DialogContent = React.forwardRef<
       {...props}
     >
       {/* Top Washi Tape Decoration on Modal */}
-      <div className="washi-tape absolute -top-3 left-1/2 -translate-x-1/2 w-28 h-6 rotate-1 pointer-events-none" />
+      <Tape variant="yellow" position="top-middle" angle={1} size="lg" />
       
       {children}
       <DialogPrimitive.Close className="absolute right-4 top-4 sketch-box-sm w-7 h-7 flex items-center justify-center bg-white/80 backdrop-blur-sm hover:bg-rose-100 hover:rotate-6 transition-all focus:outline-none">
