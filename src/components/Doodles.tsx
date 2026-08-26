@@ -1,5 +1,40 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
+
+/**
+ * Hook to detect when a doodle SVG element scrolls into the viewport.
+ * Triggers once and unobserves to preserve drawn state.
+ */
+export function useInView(
+  options: IntersectionObserverInit = { threshold: 0.1, rootMargin: '0px 0px -20px 0px' }
+) {
+  const ref = useRef<SVGSVGElement>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    if (typeof IntersectionObserver === 'undefined') {
+      setIsInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsInView(true);
+        observer.unobserve(el);
+      }
+    }, options);
+
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+    };
+  }, [options.threshold, options.rootMargin]);
+
+  return [ref, isInView] as const;
+}
 
 // Hand-drawn circle loop paths generator based on loop count (1, 2, 3, or 4 loops)
 const CIRCLE_LOOPS: Record<number, string> = {
@@ -28,21 +63,26 @@ export const DoodleCircle: React.FC<{
   className,
   color = '#f43f5e',
   animate = true,
-  delay = '1s',
+  delay = '0.2s',
   loops = 3,
   strokeWidth = '3',
 }) => {
+  const [ref, isInView] = useInView();
   const pathD = CIRCLE_LOOPS[loops] || CIRCLE_LOOPS[3];
   const delayStr = typeof delay === 'number' ? `${delay}s` : delay;
 
   return (
     <svg
+      ref={ref}
+      data-scribble="true"
+      data-in-view={isInView ? 'true' : 'false'}
       viewBox="0 0 200 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="none"
       className={cn(
-        'absolute pointer-events-none -inset-3 w-[calc(100%+1.5rem)] h-[calc(100%+1.5rem)] overflow-visible z-10',
+        'scribble-svg absolute pointer-events-none -inset-3 w-[calc(100%+1.5rem)] h-[calc(100%+1.5rem)] overflow-visible z-10',
+        isInView && 'in-view',
         className
       )}
       style={{
@@ -57,7 +97,7 @@ export const DoodleCircle: React.FC<{
         strokeLinejoin="round"
         vectorEffect="non-scaling-stroke"
         pathLength={1}
-        className={animate ? 'scribble-animate' : ''}
+        className={animate ? cn('scribble-animate', isInView && 'in-view') : ''}
       />
     </svg>
   );
@@ -71,16 +111,32 @@ export const DoodleUnderline: React.FC<{
   animate?: boolean;
   delay?: number | string;
   lines?: 1 | 2 | 3;
-}> = ({ className, color = '#f43f5e', animate = true, delay = '1s', lines = 2 }) => {
+  strokeWidth?: number | string;
+}> = ({
+  className,
+  color = '#f43f5e',
+  animate = true,
+  delay = '0.2s',
+  lines = 2,
+  strokeWidth = '3',
+}) => {
+  const [ref, isInView] = useInView();
   const pathD = UNDERLINE_LINES[lines] || UNDERLINE_LINES[2];
   const delayStr = typeof delay === 'number' ? `${delay}s` : delay;
 
   return (
     <svg
+      ref={ref}
+      data-scribble="true"
+      data-in-view={isInView ? 'true' : 'false'}
       viewBox="0 0 200 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={cn('w-full h-4 overflow-visible', className)}
+      className={cn(
+        'scribble-svg w-full h-4 overflow-visible',
+        isInView && 'in-view',
+        className
+      )}
       preserveAspectRatio="none"
       style={{
         '--animation-delay': delayStr,
@@ -89,12 +145,12 @@ export const DoodleUnderline: React.FC<{
       <path
         d={pathD}
         stroke={color}
-        strokeWidth="3"
+        strokeWidth={strokeWidth}
         strokeLinecap="round"
         strokeLinejoin="round"
         vectorEffect="non-scaling-stroke"
         pathLength={1}
-        className={animate ? 'scribble-animate' : ''}
+        className={animate ? cn('scribble-animate', isInView && 'in-view') : ''}
       />
     </svg>
   );
@@ -104,16 +160,32 @@ export const DoodleUnderline: React.FC<{
 export const DoodleArrow: React.FC<{
   className?: string;
   color?: string;
+  animate?: boolean;
   delay?: number | string;
-}> = ({ className, color = '#1e293b', delay = '1s' }) => {
+  strokeWidth?: number | string;
+}> = ({
+  className,
+  color = '#1e293b',
+  animate = true,
+  delay = '0.2s',
+  strokeWidth = '3',
+}) => {
+  const [ref, isInView] = useInView();
   const delayStr = typeof delay === 'number' ? `${delay}s` : delay;
 
   return (
     <svg
+      ref={ref}
+      data-scribble="true"
+      data-in-view={isInView ? 'true' : 'false'}
       viewBox="0 0 80 60"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={cn('w-16 h-12 overflow-visible pointer-events-none', className)}
+      className={cn(
+        'scribble-svg w-16 h-12 overflow-visible pointer-events-none',
+        isInView && 'in-view',
+        className
+      )}
       style={{
         '--animation-delay': delayStr,
       } as React.CSSProperties}
@@ -121,18 +193,22 @@ export const DoodleArrow: React.FC<{
       <path
         d="M10 50 C25 48, 55 45, 65 20 C68 12, 60 8, 52 14"
         stroke={color}
-        strokeWidth="3"
+        strokeWidth={strokeWidth}
         strokeLinecap="round"
         strokeLinejoin="round"
         vectorEffect="non-scaling-stroke"
+        pathLength={1}
+        className={animate ? cn('scribble-animate', isInView && 'in-view') : ''}
       />
       <path
         d="M48 20 L68 15 L66 32"
         stroke={color}
-        strokeWidth="3"
+        strokeWidth={strokeWidth}
         strokeLinecap="round"
         strokeLinejoin="round"
         vectorEffect="non-scaling-stroke"
+        pathLength={1}
+        className={animate ? cn('scribble-animate', isInView && 'in-view') : ''}
       />
     </svg>
   );
@@ -144,29 +220,46 @@ export const DoodleCheck: React.FC<{
   checked?: boolean;
   animate?: boolean;
   delay?: number | string;
-}> = ({ className, checked = true, animate = true, delay = '0.3s' }) => {
+  color?: string;
+  strokeWidth?: number | string;
+}> = ({
+  className,
+  checked = true,
+  animate = true,
+  delay = '0.1s',
+  color = '#16a34a',
+  strokeWidth = '3',
+}) => {
+  const [ref, isInView] = useInView();
   if (!checked) return null;
   const delayStr = typeof delay === 'number' ? `${delay}s` : delay;
 
   return (
     <svg
+      ref={ref}
+      data-scribble="true"
+      data-in-view={isInView ? 'true' : 'false'}
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={cn('w-5 h-5 overflow-visible', className)}
+      className={cn(
+        'scribble-svg w-5 h-5 overflow-visible',
+        isInView && 'in-view',
+        className
+      )}
       style={{
         '--animation-delay': delayStr,
       } as React.CSSProperties}
     >
       <path
         d="M4 12 L9 18 L20 6 M9 18 L19 8"
-        stroke="#16a34a"
-        strokeWidth="3"
+        stroke={color}
+        strokeWidth={strokeWidth}
         strokeLinecap="round"
         strokeLinejoin="round"
         vectorEffect="non-scaling-stroke"
         pathLength={1}
-        className={animate ? 'scribble-animate' : ''}
+        className={animate ? cn('scribble-animate', isInView && 'in-view') : ''}
       />
     </svg>
   );

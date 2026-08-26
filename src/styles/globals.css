@@ -363,10 +363,17 @@
 .scribble-animate {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
+  /* Remains hidden off-screen until triggered in-view */
+}
+
+.scribble-animate.in-view,
+.in-view .scribble-animate,
+[data-in-view="true"] .scribble-animate,
+[data-in-view="true"].scribble-animate {
   animation-name: scribble-draw;
-  animation-duration: var(--animation-duration, 1.2s);
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  animation-delay: var(--animation-delay, 1s);
+  animation-duration: var(--animation-duration, 0.8s);
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  animation-delay: var(--animation-delay, 0s);
   animation-fill-mode: forwards;
 }
 

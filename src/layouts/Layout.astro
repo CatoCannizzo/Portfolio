@@ -44,5 +44,44 @@ const {
     <div class="absolute top-0 bottom-0 left-1.5 sm:left-8 w-[18px] notebook-hole-punches z-20 pointer-events-none hidden md:block" aria-hidden="true"></div>
 
     <slot />
+
+    <!-- Scroll-triggered scribble animation observer for SSR & View Transitions -->
+    <script is:inline>
+      function initScribbleScrollObserver() {
+        if (typeof IntersectionObserver === 'undefined') return;
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                entry.target.setAttribute('data-in-view', 'true');
+                const paths = entry.target.querySelectorAll('.scribble-animate');
+                paths.forEach((p) => p.classList.add('in-view'));
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          {
+            threshold: 0.1,
+            rootMargin: '0px 0px -20px 0px',
+          }
+        );
+
+        document.querySelectorAll('.scribble-svg, .scribble-animate, [data-scribble]').forEach((el) => {
+          if (!el.classList.contains('in-view')) {
+            observer.observe(el);
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initScribbleScrollObserver);
+      } else {
+        initScribbleScrollObserver();
+      }
+
+      document.addEventListener('astro:page-load', initScribbleScrollObserver);
+    </script>
   </body>
 </html>
