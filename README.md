@@ -1,6 +1,6 @@
 # Notebook Design System & Engineering Portfolio
 
-A tactile, hand-crafted personal portfolio and design system built with **Astro 4**, **React 18**, **Tailwind CSS**, and **ShadCN UI**. The aesthetic is centered around a physical lined notebook theme featuring custom baseline grid alignment, doodle micro-interactions, washi tape accents, and detached glassmorphism overlays.
+A tactile, hand-crafted personal portfolio and design system built with **Astro 4**, **React 18**, **Tailwind CSS**, and **ShadCN UI**. The aesthetic is centered around a physical lined notebook theme featuring custom baseline grid alignment, doodle micro-interactions, washi tape accents, unified fixtures, and detached glassmorphism overlays.
 
 ---
 
@@ -73,45 +73,113 @@ Because CSS distributes line height symmetrically around glyphs (half-leading), 
 .font-sketch.align-to-rule { --baseline-offset: 6px; } /* Patrick Hand */
 ```
 
----
-
-### 5. Detached Glassmorphism Modals & Dialogs
-
-Interactive modal dialogs (`src/components/ui/dialog.tsx`) are **intentionally detached** from the 32px baseline grid:
-- **Backdrop Scrim**: `bg-slate-950/40 backdrop-blur-md` creates an artful, frosted blur over the background notebook paper.
-- **Acrylic Surface**: `bg-[#fffefc]/90 backdrop-blur-xl` with inner glow (`shadow-[0_20px_50px_rgba(30,41,59,0.25),0_0_0_1px_rgba(255,255,255,0.8)_inset]`) floating cleanly above the page.
+For large display headings (`text-1.5` / `text-2`), use `translate-y-[6px]` so letter baselines physically sit flat on top of the blue ruled line, allowing descenders (`p`, `g`, `y`, `j`, `q`) to dip naturally below.
 
 ---
 
-### 6. Tactile & Doodle Components
+### 5. Unified Fixture & Fastener System (`src/components/ui/fixture.tsx`)
 
-- **Washi Tape (`<DoodleTape variant="yellow | blue | pink" />`)**: Hand-drawn colored washi tape strips for pinning cards and modals.
-- **Scribble Animations (`<DoodleCircle />`, `<DoodleUnderline />`, `<DoodleCheck />`, `<DoodleArrow />`)**: Vector SVG animations styled like ink doodles.
-- **Hand-drawn Borders & Shadows**: `.sketch-box`, `.sketch-box-thick`, `.doodle-shadow`, and `.doodle-shadow-hover`.
+A unified physical fastener system that attaches to any container (`Card`, `Badge`, `StickyNoteStack`):
+
+- **Washi Tape Strip (`<Tape />` / `<DoodleTape />`)**: Translucent washi tape with dashed cut edges. Supports positions `top-middle`, `top-left`, `top-right` and color variants `yellow`, `blue`, `pink`, `green`.
+- **Opposite-Corner Tape (`<CornerTape />`)**: Tapes **two opposite corners** of a card diagonally:
+  - `orientation="top-left-bottom-right"` ( \ )
+  - `orientation="top-right-bottom-left"` ( / )
+- **3D Pushpin (`<PushPin />` / `<PushPinIcon />`)**: Realistic pushpin with metallic head, needle shadow, and glare in 6 colors (`rose`, `red`, `blue`, `yellow`, `green`, `slate`).
+- **Metallic Staple (`<Staple />`)**: Dark gunmetal wire SVG with puncture slits and wire shadow.
+- **Wire Paperclip (`<Paperclip />` / `<DoodlePaperclip />`)**: Tactile paperclip placed on card edges.
 
 ---
 
-## 🛠️ Project Structure
+### 6. Container Components & Sticky Note Architecture
+
+#### `Card` (`src/components/ui/card.tsx`)
+- Built with `cva` supporting `variant` (`default`, `paper`, `yellow`, `blue`, `pink`, `green`, `slate`), `borderStyle`, `shadowStyle`, and native `fixture` props:
+```tsx
+<Card fixture="tape-corners" fixtureProps={{ tapeVariant: 'yellow' }}>
+  <CardTitle>Aura Design System</CardTitle>
+  <CardDescription>Minimal lightweight tactile UI</CardDescription>
+</Card>
+```
+
+#### `StickyNoteStack` (`src/components/StickyNoteStack.tsx`)
+- **1:1 Square Aspect Ratio**: Defaults to `aspectRatio="square"` (`aspect-square min-w-[160px] min-h-[160px]`) like real Post-it pads.
+- **90° Clean Square Edges**: Clean 90-degree corners (`rounded-none` and solid border lines) mirroring authentic paper.
+- **Synchronized Layers**: 1 to 5 layers of paper notes with organic jitter where all sheets match 1:1 in dimensions.
+
+```tsx
+<StickyNoteStack count={3} color="yellow" fixture="tape-corners">
+  <p className="font-hand text-0.5">Quick memo note</p>
+</StickyNoteStack>
+```
+
+#### `Badge` (`src/components/ui/badge.tsx`)
+- Built with `cva` aligning to the shared token palette (`yellow`, `blue`, `pink`, `green`, `paper`, `outline`, `tape`) with optional micro-fixtures (`fixture="staple"`, `fixture="pin"`).
+
+---
+
+### 7. Highlighter Marker Effects & Variable Tilt System
+
+Tactile, translucent highlighter marks with chisel-tip geometry, realistic ink gradient density, and `mix-blend-mode: multiply` allowing the blue notebook ruled lines and background paper to show through.
+
+#### Marker Colors
+- `.marker-yellow`: Classic fluorescent yellow highlighter ink.
+- `.marker-blue`: Translucent sky blue ink.
+- `.marker-pink`: Vibrant soft rose highlighter.
+- `.marker-green`: Crisp mint green marker.
+
+#### 8 Extreme Tilt & Height Modifiers (`marker-tilt-*`)
+
+| Class | Rotation (`--marker-rot`) | Chisel Skew (`--marker-skew`) | Height / Coverage | Visual Character |
+|---|---|---|---|---|
+| `marker-tilt-1` | `-3.5deg` | `-16deg` | Standard (`-3px`) | **Heavy Classic Chisel**: Bold upward slant and thick felt tip body. |
+| `marker-tilt-2` | `+3.0deg` | `+16deg` (Positive) | Standard (`-2px`) | **Reversed Angle (Left-Handed)**: Inverted `/ /` chisel slant sloping downward. |
+| `marker-tilt-3` | `0.0deg` | `0deg` (Perpendicular) | Boxy (`-2px`) | **Straight Vertical Stamp**: 90° straight cut boxy marker with zero skew. |
+| `marker-tilt-4` | `-2.0deg` | `-25deg` (Deep Acute) | Extended X (`-10px`) | **Razor Diamond Slant**: Sharp acute parallelogram blade cut. |
+| `marker-tilt-5` | `+1.2deg` | `-8deg` | **Tall (`-8px` top, `-7px` btm)** | **Extra Tall Juicy Block**: Maximum vertical coverage overflowing the line. |
+| `marker-tilt-6` | `-1.2deg` | `-14deg` | **Slim (`48%` top)** | **Slim Lower-Half Underline**: Highlights only bottom half of text like a ribbon. |
+| `marker-tilt-7` | `+4.8deg` | `+14deg` (Positive) | Standard (`-3px`) | **Steep Downward Cascade**: Steep positive downward angle with reverse slant. |
+| `marker-tilt-8` | `-5.5deg` | `-22deg` | Extended X (`-9px`) | **Steep Upward Slash**: Fast dynamic aggressive slash across the word. |
+
+---
+
+### 8. Interactive Component Test Bench (`/test`)
+
+A live testing suite is available at route **`/test`** (`src/pages/test.astro` & `src/components/ComponentPlayground.tsx`):
+- **Live Interactive Sandbox**: Switch between `Card`, `StickyNoteStack`, and `Badge`, toggle any fixture (corner tape, washi tape strip, pushpin, staple, paperclip), customize colors/positions, and test against 6 content lengths.
+- **Rule Inspector**: Toggle ruled notebook lines overlay to visually inspect 32px line rhythm.
+- **Full Matrix Showcase**: Side-by-side verification of all containers × fixture combinations.
+
+---
+
+## 📁 Project Structure
 
 ```text
 src/
 ├── components/
-│   ├── ui/               # Reusable primitives (badge, button, card, dialog)
-│   ├── ContactSection.tsx# Inbox & message modal
-│   ├── Doodles.tsx       # Hand-drawn SVGs, circles, arrows, underlines
-│   ├── Experience.tsx    # Capabilities checklist & work journal timeline
-│   ├── Footer.tsx        # Minimal notebook footer
-│   ├── Header.tsx        # 64px synchronized sticky navigation
-│   ├── Hero.tsx          # Hero section with 2-line headline & annotations
-│   └── Projects.tsx      # Selected work folder & preview modal
+│   ├── ui/                    # Reusable primitives (badge, button, card, dialog, fixture)
+│   ├── ComponentPlayground.tsx# Interactive test bench and matrix suite
+│   ├── ContactSection.tsx     # Inbox & message modal
+│   ├── Doodles.tsx            # Hand-drawn SVGs, circles, arrows, underlines
+│   ├── Experience.tsx         # Capabilities checklist & work journal timeline
+│   ├── Footer.tsx             # Minimal notebook footer with test bench link
+│   ├── Header.tsx             # 64px synchronized sticky navigation
+│   ├── Hero.tsx               # Hero section with 2-line headline & annotations
+│   ├── Highlight.tsx          # Reusable Highlighter component with variable tilt presets
+│   ├── Projects.tsx           # Selected work folder & preview modal
+│   └── StickyNoteStack.tsx    # 1:1 square Post-it stack with 90° clean edges
 ├── layouts/
-│   └── Layout.astro      # Master layout with .notebook-paper-bg & view transitions
+│   └── Layout.astro           # Master layout with .notebook-paper-bg & view transitions
+├── lib/
+│   ├── container-tokens.ts    # Unified design tokens (palettes, borders, shadows)
+│   └── utils.ts               # cn() helper
 ├── pages/
-│   ├── index.astro       # Master grid page container
+│   ├── index.astro            # Master grid page container
+│   ├── test.astro             # Dedicated component test bench route (/test)
 │   └── projects/
-│       └── [slug].astro  # Project case study template
+│       └── [slug].astro       # Project case study template
 └── styles/
-    └── globals.css       # Notebook paper gradient, grid rules & transitions
+    └── globals.css            # Notebook paper gradient, grid rules & transitions
 ```
 
 ---

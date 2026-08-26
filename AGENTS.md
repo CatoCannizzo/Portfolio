@@ -1,6 +1,6 @@
 # Agent Guidelines & Typography System
 
-This document specifies the design system rules, typography scale, spacing conventions, and layout architecture for this project. All AI agents working on this codebase must strictly adhere to these guidelines.
+This document specifies the design system rules, typography scale, spacing conventions, layout architecture, container tokens, fixture mechanics, and debugging protocols for this project. All AI agents working on this codebase must strictly adhere to these guidelines.
 
 ---
 
@@ -12,6 +12,7 @@ The portfolio aesthetic is built around a tactile, lined notebook theme (`.noteb
 - Pages use `<main class="notebook-grid relative z-10 w-full">` with `grid-auto-rows: minmax(32px, auto)` (`auto-rows-line` in Tailwind).
 - Sections naturally expand to fit dynamic content with quantized vertical padding (`py-line-2` or `py-line-3`).
 - **Header Synchronization**: The header is fixed to `h-16` (64px = exactly 2 lines) with `border-b-2`, ensuring that content in `<main>` starts flush on Line 3 (`Y = 64px`).
+- **No Arbitrary Viewport Heights**: Never use `vh` units (`min-h-screen`, `min-h-[calc(100vh-...)]`) on content sections, as arbitrary browser heights divided by 32px yield fractional line positions that throw all subsequent sections off-grid.
 
 ---
 
@@ -37,7 +38,15 @@ Instead, **ALWAYS use the custom line interval scale** configured in `tailwind.c
 
 ---
 
-## 3. Strict Rule: Quantized Spacing Scale (`line-*`)
+## 3. Strict Rule: Multi-Line Text Line-Box Invariant (Inline vs Inline-Block)
+
+**NEVER use `inline-block` with padding/margins inside multiline text blocks (like headings).**
+- An `inline-block` box with padding inflates that specific line's line-box height (e.g. from 64px to 70px+), causing all subsequent wrapped lines to drift away from the background notebook lines.
+- **Rule**: Always use `display: inline; padding: 0;` for inline decorations (markers, highlights, tags), drawing visual backgrounds with `::before` pseudo-elements positioned absolutely so they do not expand the line-box.
+
+---
+
+## 4. Strict Rule: Quantized Spacing Scale (`line-*`)
 
 **DO NOT use arbitrary Tailwind spacing classes** (`p-3`, `p-5`, `mb-7`, `mt-10`, etc.) for vertical margins, paddings, and heights.
 
@@ -52,14 +61,54 @@ Instead, **ALWAYS use the quantized `line-*` spacing scale**:
 
 ---
 
-## 4. Optical Baseline Calibration (`.align-to-rule`)
+## 5. Optical Baseline Calibration (`.align-to-rule`)
 
 When text needs to physically rest on top of the blue ruled line:
 - Add `.align-to-rule` to apply the calibrated vertical shift per font family (`--baseline-offset: 4px` for Caveat, `5px` for Sans, `6px` for Patrick Hand).
+- For large display headings (`text-1.5` / `text-2`), use `translate-y-[6px]` so letter baselines physically sit flat on top of the blue ruled line, allowing descenders (`p`, `g`, `y`, `j`, `q`) to dip naturally below.
 
 ---
 
-## 5. Detached Glassmorphism Modals & Dialogs
+## 6. Unified Fixture & Fastener System (`src/components/ui/fixture.tsx`)
+
+Container components (`Card`, `StickyNoteStack`) share a unified fixture engine via `<Fixture type="..." />` or container props (`fixture="tape-corners" | "tape" | "pin" | "staple" | "paperclip" | "none"`).
+
+### Fixture Types & Geometry Rules
+1. **`PushPin` (`pin`)**:
+   - 3D tactile pushpin with needle shadow, metallic core, and highlight glare.
+   - Supported colors: `rose`, `red`, `blue`, `yellow`, `green`, `slate`.
+   - Positions: `top-middle` (centered across top edge), `top-left`, `top-right`.
+2. **`Staple` (`staple`)**:
+   - Realistic gunmetal metallic wire SVG with paper slits and wire shadow.
+   - Positions: `top-middle`, `top-left` (`top-3.5 left-4`), `top-right` (`top-3.5 right-4`), `diagonal-left` (`top-3.5 left-3.5 rotate-[-35deg]`), `diagonal-right` (`top-3.5 right-3.5 rotate-[35deg]`).
+3. **`Tape` (`tape`)**:
+   - Single washi tape strip with dashed cut edges and semi-translucent colors (`yellow`, `blue`, `pink`, `green`).
+   - Standard Tailwind sizes: `sm` (`h-4 w-16`), `default` (`h-6 w-24`), `lg` (`h-7 w-32`).
+   - **Isolation Rule**: Positioning coordinate translation (`-translate-x-1/2 -translate-y-1/2`) is placed on an outer wrapper div to prevent CSS rotation properties from overriding translate coordinates.
+4. **`CornerTape` (`tape-corners`)**:
+   - Tapes **two opposite corners** of a card/container diagonally:
+     - `orientation="top-left-bottom-right"` ( \ )
+     - `orientation="top-right-bottom-left"` ( / )
+5. **`Paperclip` (`paperclip`)**:
+   - Hand-drawn tactile wire paperclip placed on card edges.
+
+---
+
+## 7. Container Tokens & Sticky Note Architecture
+
+### Unified Design Tokens (`src/lib/container-tokens.ts`)
+- Colors: `yellow`, `blue`, `pink`, `green`, `paper`, `white`, `slate`.
+- Borders: `sketch-box`, `sketch-box-sm`, `sketch-box-thick`, `sketch-box-dashed`.
+- Shadows: `doodle-shadow`, `doodle-shadow-sm`, `doodle-shadow-lg`, `doodle-shadow-hover`.
+
+### Sticky Note Rules (`StickyNoteStack.tsx`)
+- **Authentic 90° Square Edges**: Sticky notes must use clean 90-degree square/rectangular edges (`rounded-none` and solid border lines). Do NOT apply curved sketch borders to sticky notes, as physical Post-it pads are clean-cut paper.
+- **1:1 Square Post-It Proportions**: Defaults to `aspectRatio="square"` (`aspect-square min-w-[160px] min-h-[160px]`). For wide horizontal banners, specify `aspectRatio="auto"`.
+- **Height Synchronization**: The top note and all underlying stacked layers must maintain identical `h-full w-full` dimensions to prevent the top sheet from rendering as a short strip on top of stretched background sheets.
+
+---
+
+## 8. Detached Glassmorphism Modals & Dialogs
 
 - Modals and dialogs (`src/components/ui/dialog.tsx`) are **intentionally detached** from the 32px grid.
 - Use `bg-slate-950/40 backdrop-blur-md` for the overlay scrim to artfully blur the notebook background.
@@ -67,28 +116,32 @@ When text needs to physically rest on top of the blue ruled line:
 
 ---
 
-## 6. Responsive Font Size Rules
+## 9. UI Components Conventions
 
-For large headings, use responsive interval pairings:
-- **Hero H1**: `className="text-1.5 md:text-2 font-bold ..."`
-- **Subtitles**: `className="text-0.5 md:text-0.75 ..."`
-- **Section Headings**: `className="text-1 font-bold ..."`
-
----
-
-## 7. Font Families
-
-- `font-sans`: `Plus Jakarta Sans` — Clean modern sans-serif.
-- `font-hand`: `Caveat` — Expressive handwriting for margin notes, stickers, timestamps.
-- `font-sketch`: `Patrick Hand` — Architectural/doodle lettering for badges, buttons, folder tabs.
-
----
-
-## 8. UI Components Conventions
-
-- **`Badge` (`src/components/ui/badge.tsx`)**: Defaults to `text-0.375 font-sketch`.
+- **`Badge` (`src/components/ui/badge.tsx`)**: Defaults to quantized 1-line height (`min-h-line-1 px-3 py-line-0.25 text-0.375 font-sketch`). Supports `variant` and `size` (`sm`, `default`, `lg`).
 - **`Button` (`src/components/ui/button.tsx`)**: `sm` uses `h-line-1 text-0.375`, `default` and `lg` use `h-line-1.5 text-0.5`.
+- **`Card` (`src/components/ui/card.tsx`)**: Supports `variant`, `borderStyle`, `shadowStyle`, and native `fixture` (`pin`, `staple`, `tape`, `tape-corners`, `paperclip`).
 - **`CardTitle` (`src/components/ui/card.tsx`)**: Uses `text-0.75 font-bold font-sans`.
 - **`CardDescription` (`src/components/ui/card.tsx`)**: Uses `text-0.5 font-normal`.
 - **`DialogTitle` (`src/components/ui/dialog.tsx`)**: Uses `text-1 font-bold font-sans`.
 - **`DialogDescription` (`src/components/ui/dialog.tsx`)**: Uses `text-0.5 font-normal`.
+
+---
+
+## 10. Automated Debugging & Testing Protocols
+
+1. **Interactive Component Test Bench**:
+   - Access **`/test`** (`src/pages/test.astro` and `src/components/ComponentPlayground.tsx`) to dynamically verify all container types, fixture combinations, and lorem ipsum content lengths.
+2. **Headless Visual Audit**:
+   ```bash
+   google-chrome --headless=new --disable-gpu --window-size=1280,900 --screenshot=desktop.png http://localhost:4321
+   google-chrome --headless=new --disable-gpu --window-size=390,844 --screenshot=mobile.png http://localhost:4321
+   ```
+3. **Inspect Line Bounding Rects**:
+   ```javascript
+   const h1 = document.querySelector('h1');
+   const range = document.createRange();
+   range.selectNodeContents(h1);
+   const rects = Array.from(range.getClientRects());
+   // Check that (rects[i+1].top - rects[i].top) strictly equals 64px (or 32px)
+   ```
