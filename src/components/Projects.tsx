@@ -10,8 +10,7 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 import { DoodleUnderline } from '@/components/Doodles';
-import { Highlight } from '@/components/Highlight';
-import { ArrowUpRight, BookOpen } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { projectsData, type Project } from '@/data/projects';
 
 export const Projects: React.FC = () => {
@@ -97,7 +96,7 @@ export const Projects: React.FC = () => {
                     href={`/projects/${project.slug}`}
                     className="flex items-center justify-center gap-2"
                   >
-                    <span>Open Full Case Study</span>
+                    <span>Open Case Study</span>
                   </a>
                 </Button>
               </div>

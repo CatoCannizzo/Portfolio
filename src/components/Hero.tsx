@@ -20,7 +20,7 @@ export const Hero: React.FC = () => {
           <span>Status: Open for new projects &amp; ideas</span>
         </Badge>
         {/* Animated Hand-Drawn Circle loop around status */}
-        <DoodleCircle color="#f43f5e" delay="1s" loops={2} className="w-[140%] -left-[20%]" />
+        <DoodleCircle color="#f43f5e" delay="0.4s" loops={2} className="w-[140%] -left-[20%]" />
       </div>
 
       {/* Main Headline with Highlighter Effect */}
@@ -37,7 +37,7 @@ export const Hero: React.FC = () => {
           <Highlight color="blue" tilt="4">
             purpose
           </Highlight>
-          <DoodleUnderline color="#f43f5e" delay="2s" className="absolute -bottom-2 left-0 w-full" />
+          <DoodleUnderline color="#f43f5e" delay="0.8s" className="absolute -bottom-2 left-0 w-full" />
         </span>
         .
       </h1>
@@ -67,9 +67,9 @@ export const Hero: React.FC = () => {
             </Button>
 
             {/* Hand-drawn Arrow pointing to main CTA */}
-            <div className="hidden sm:block absolute -right-4 top-14 rotate-[-12deg]">
+            <div className="hidden md:block absolute -right-4 top-14 rotate-[-12deg] pointer-events-none select-none">
               <div className="flex flex-col items-center">
-                <DoodleArrow color="#f43f5e" className="w-12 h-10 -scale-x-100 rotate-45" />
+                <DoodleArrow color="#f43f5e" delay="1.1s" className="w-12 h-10 -scale-x-100 rotate-45" />
                 <span className="font-hand text-rose-500 font-bold text-0.5 -mb-1">click here!</span>
               </div>
             </div>

@@ -37,12 +37,12 @@ const roles: Role[] = [
 ];
 
 const initialSkills = [
-  { id: '1', name: 'Frontend Architecture', checked: true },
-  { id: '2', name: 'Design Systems & Tokens', checked: true },
-  { id: '3', name: 'Performance & Web Vitals', checked: true },
-  { id: '4', name: 'TypeScript & React 18', checked: true },
-  { id: '5', name: 'Astro & Static Generation', checked: true },
-  { id: '6', name: 'Tactile UI / Micro-interactions', checked: true },
+  { id: '1', name: 'Frontend Architecture', checked: false },
+  { id: '2', name: 'Design Systems & Tokens', checked: false },
+  { id: '3', name: 'Performance & Web Vitals', checked: false },
+  { id: '4', name: 'TypeScript & React 18', checked: false },
+  { id: '5', name: 'Astro & Static Generation', checked: false },
+  { id: '6', name: 'Tactile UI / Micro-interactions', checked: false },
 ];
 
 export const Experience: React.FC = () => {
@@ -72,9 +72,6 @@ export const Experience: React.FC = () => {
               <DoodleUnderline color="#f43f5e" className="absolute -bottom-2 left-0 w-full" />
             </div>
             
-            <p className="font-hand text-0.5 md:text-0.75 text-slate-600 mb-line-1 align-to-rule">
-              ✏️ <span className="font-bold">Interactive Checklist:</span> Click any skill to toggle checkmark!
-            </p>
 
             {/* Clickable Hand-Drawn Checklist */}
             <div className="space-y-line-0.5">
@@ -82,14 +79,16 @@ export const Experience: React.FC = () => {
                 <button
                   key={skill.id}
                   onClick={() => toggleSkill(skill.id)}
+                  role="checkbox"
+                  aria-checked={skill.checked}
                   className="w-full flex items-center gap-3 px-3 py-line-0.25 rounded-lg bg-white/90 sketch-box-sm text-left hover:bg-yellow-50 hover:translate-x-1 transition-all group cursor-pointer"
                 >
                   <div className="w-6 h-6 sketch-box-sm bg-white flex items-center justify-center border-slate-900 shrink-0">
-                    <DoodleCheck checked={skill.checked} />
+                    <DoodleCheck checked={skill.checked} animate={false} />
                   </div>
                   <span
-                    className={`font-sketch text-0.5 font-bold text-slate-800 transition-all ${
-                      skill.checked ? '' : 'text-slate-400 line-through'
+                    className={`font-sketch text-0.5 font-bold transition-all ${
+                      skill.checked ? 'text-slate-400 line-through' : 'text-slate-800'
                     }`}
                   >
                     {skill.name}
@@ -111,7 +110,7 @@ export const Experience: React.FC = () => {
               className="w-full rotate-[-1.5deg]"
             >
               <StickyNotePage>
-                <p className="font-hand text-0.5 text-slate-800 align-to-rule">
+                <p className="font-hand text-0.5 text-slate-800 ">
                   "Writing clean code is like good handwriting: it takes deliberate practice and clarity of thought."
                 </p>
               </StickyNotePage>
