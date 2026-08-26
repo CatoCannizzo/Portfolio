@@ -64,7 +64,7 @@ Instead, **ALWAYS use the quantized `line-*` spacing scale**:
 ## 5. Optical Baseline Calibration (`.align-to-rule`)
 
 When text needs to physically rest on top of the blue ruled line:
-- Add `.align-to-rule` to apply the calibrated vertical shift per font family (`--baseline-offset: 4px` for Caveat, `5px` for Sans, `6px` for Patrick Hand).
+- Add `.align-to-rule` to apply the calibrated vertical shift per font family (`--baseline-offset: 4px` for Caveat, `5px` for Sans, `6px` for Kalam).
 - For large display headings (`text-1.5` / `text-2`), use `translate-y-[6px]` so letter baselines physically sit flat on top of the blue ruled line, allowing descenders (`p`, `g`, `y`, `j`, `q`) to dip naturally below.
 
 ---

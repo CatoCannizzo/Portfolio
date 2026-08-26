@@ -70,7 +70,7 @@ Because CSS distributes line height symmetrically around glyphs (half-leading), 
 ```css
 .font-hand.align-to-rule { --baseline-offset: 4px; }   /* Caveat cursive */
 .font-sans.align-to-rule { --baseline-offset: 5px; }   /* Plus Jakarta Sans */
-.font-sketch.align-to-rule { --baseline-offset: 6px; } /* Patrick Hand */
+.font-sketch.align-to-rule { --baseline-offset: 6px; } /* Kalam */
 ```
 
 For large display headings (`text-1.5` / `text-2`), use `translate-y-[6px]` so letter baselines physically sit flat on top of the blue ruled line, allowing descenders (`p`, `g`, `y`, `j`, `q`) to dip naturally below.

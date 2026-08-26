@@ -14,7 +14,7 @@ export default {
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
         hand: ['"Caveat"', 'cursive'],
-        sketch: ['"Patrick Hand"', 'cursive'],
+        sketch: ['"Kalam"', 'cursive'],
       },
       fontSize: {
         '0.25': ['0.5rem', { lineHeight: '1rem' }],      /* 8px (0.25 lines, 16px line-height) */
