@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
-import { DoodleUnderline, DoodleTape } from '@/components/Doodles';
+import { DoodleUnderline } from '@/components/Doodles';
 
 export const ContactSection: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -34,12 +34,14 @@ export const ContactSection: React.FC = () => {
   return (
     <section id="contact" className="py-line-2 md:py-line-3 px-6 sm:pl-32 sm:pr-8 max-w-5xl mx-auto">
       <div className="relative">
-        {/* Top Washi Tape */}
-        <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
-          <DoodleTape variant="yellow" className="w-32 h-6" />
-        </div>
-
-        <Card className="bg-[#fffdf9] sketch-box-thick doodle-shadow-lg p-line-1.5 sm:p-line-2 text-center flex flex-col items-center justify-center relative overflow-hidden">
+        <Card
+          variant="paper"
+          borderStyle="thick"
+          shadowStyle="lg"
+          fixture="tape"
+          fixtureProps={{ tapeVariant: 'yellow', size: 'lg' }}
+          className="p-line-1.5 sm:p-line-2 text-center flex flex-col items-center justify-center relative"
+        >
           {/* Air Mail Hand-Drawn Stamp in Top Right */}
           <div className="hidden sm:block absolute top-6 right-6 border-2 border-dashed border-rose-500 p-2 rotate-6 text-rose-500 font-sketch text-0.375 uppercase tracking-widest pointer-events-none select-none">
             <span className="block font-bold">AIR MAIL ✈️</span>
@@ -78,14 +80,15 @@ export const ContactSection: React.FC = () => {
             </Button>
           </div>
 
-          <div className="flex items-center gap-3 text-0.5 font-hand text-slate-600">
+          <div className="flex items-center gap-2 text-0.5 font-hand text-slate-600">
             <span>Prefer a quick note?</span>
-            <button
+            <Button
+              variant="link"
               onClick={() => setIsDialogOpen(true)}
-              className="font-bold text-slate-900 underline underline-offset-4 hover:text-blue-600 transition-colors cursor-pointer text-0.5"
+              className="p-0 h-auto font-hand font-bold text-0.5 text-slate-900 hover:text-blue-600 cursor-pointer"
             >
               Send a Scribble Message ✍️
-            </button>
+            </Button>
           </div>
         </Card>
       </div>
@@ -121,7 +124,7 @@ export const ContactSection: React.FC = () => {
                   type="text"
                   required
                   placeholder="Jane Doe"
-                  className="w-full h-10 px-3 text-0.5 bg-white sketch-box-sm focus:outline-none focus:ring-2 focus:ring-slate-900"
+                  className="w-full h-line-1.5 px-3 py-line-0.25 text-0.5 bg-white sketch-box-sm focus:outline-none focus:ring-2 focus:ring-slate-900"
                 />
               </div>
 
@@ -133,7 +136,7 @@ export const ContactSection: React.FC = () => {
                   type="email"
                   required
                   placeholder="jane@example.com"
-                  className="w-full h-10 px-3 text-0.5 bg-white sketch-box-sm focus:outline-none focus:ring-2 focus:ring-slate-900"
+                  className="w-full h-line-1.5 px-3 py-line-0.25 text-0.5 bg-white sketch-box-sm focus:outline-none focus:ring-2 focus:ring-slate-900"
                 />
               </div>
 
@@ -145,7 +148,7 @@ export const ContactSection: React.FC = () => {
                   required
                   rows={3}
                   placeholder="Hi Alex, let's talk about..."
-                  className="w-full p-3 text-0.5 bg-white sketch-box-sm focus:outline-none focus:ring-2 focus:ring-slate-900 resize-none"
+                  className="w-full p-line-0.5 text-0.5 bg-white sketch-box-sm focus:outline-none focus:ring-2 focus:ring-slate-900 resize-none"
                 />
               </div>
 
@@ -155,11 +158,11 @@ export const ContactSection: React.FC = () => {
                   variant="ghost"
                   size="sm"
                   onClick={() => setIsDialogOpen(false)}
-                  className="font-sketch text-0.5"
+                  className="font-sketch text-0.375"
                 >
                   Cancel
                 </Button>
-                <Button type="submit" variant="default" size="sm" className="font-sketch text-0.5">
+                <Button type="submit" variant="default" size="sm" className="font-sketch text-0.375">
                   Send Note 🚀
                 </Button>
               </div>

@@ -2,6 +2,8 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { DoodleCircle, DoodleArrow, DoodleUnderline } from '@/components/Doodles';
+import { StickyNoteStack, StickyNotePage } from '@/components/StickyNoteStack';
+import { Highlight } from '@/components/Highlight';
 import { ArrowUpRight } from 'lucide-react';
 
 export const Hero: React.FC = () => {
@@ -13,9 +15,8 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* Availability Status Badge with Hand-Drawn Circle Effect */}
-      <div className="relative inline-flex items-center mb-line-1">
-        <Badge variant="yellow" className="py-1 px-4 gap-2 text-0.375 font-sketch text-slate-900 rotate-[-1deg]">
-
+      <div className="relative inline-flex items-center h-line-1 mb-line-1">
+        <Badge variant="yellow" className="px-4 gap-2 rotate-[-1deg]">
           <span>Status: Open for new projects &amp; ideas</span>
         </Badge>
         {/* Animated Hand-Drawn Circle loop around status */}
@@ -23,21 +24,26 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* Main Headline with Highlighter Effect */}
-      <h1 className="text-1.5 md:text-2 font-bold text-slate-900 tracking-tight mb-line-1 max-w-3xl">
-        Building refined web products with{' '}
-        <span className="relative inline-block">
-          <span className="marker-yellow relative z-10 px-2 py-0.5">clarity</span>
-        </span>{' '}
+      <h1 className="text-1.5 md:text-2 font-bold text-slate-900 tracking-tight mb-line-1 max-w-3xl translate-y-[6px]">
+        Building refined web{' '}
+        <br className="hidden md:inline" />
+        products with{' '}
+        <Highlight color="yellow" tilt="1">
+          clarity
+        </Highlight>{' '}
+        <br className="hidden md:inline" />
         and{' '}
-        <span className="relative inline-block">
-          <span className="marker-blue relative z-10 px-2 py-0.5">purpose</span>
-          <DoodleUnderline color="#f43f5e" delay='2s' className="absolute -bottom-2 left-0 w-full " />
+        <span className="relative inline">
+          <Highlight color="blue" tilt="4">
+            purpose
+          </Highlight>
+          <DoodleUnderline color="#f43f5e" delay="2s" className="absolute -bottom-2 left-0 w-full" />
         </span>
         .
       </h1>
 
       {/* Subtitle / Bio styled like notebook annotations */}
-      <p className="text-0.5 md:text-0.75 text-slate-700 font-normal max-w-2xl mb-line-1.5">
+      <p className="text-0.5 md:text-0.75 text-slate-700 font-normal max-w-2xl mb-line-1.5 align-to-rule">
         I’m a product engineer sketching minimal interfaces, architecting clean codebases, and crafting deliberate digital experiences.
       </p>
 
@@ -66,11 +72,53 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* Minimal Tech Ruled List Footer */}
-      <div className="mt-line-2 pt-line-1 w-full flex flex-wrap items-center justify-between gap-4 text-0.375 font-sketch text-slate-600 uppercase tracking-wider border-t border-dashed border-slate-300/80">
-        <div className="flex items-center gap-2">
-          <span>Astro 4 • React • TypeScript • Tailwind</span>
-        </div>
-        <span className="font-hand lowercase text-0.5 text-slate-500">📍 based in SF &amp; remote</span>
+      <div className="mt-line-2 pt-line-1 w-full flex flex-wrap items-center justify-between gap-4 border-t border-dashed border-slate-300/80">
+        <StickyNoteStack
+          count={1}
+          color="yellow"
+          fixture="staple"
+          size="5x5"
+          className="rotate-[1deg]"
+        >
+          <StickyNotePage title="Tech Stack">
+            <div className="flex flex-col items-center justify-center text-center py-1">
+              <span className="font-sketch text-0.375 font-bold text-slate-800 uppercase tracking-wide">
+                Astro • React<br />TypeScript • Tailwind
+              </span>
+            </div>
+          </StickyNotePage>
+        </StickyNoteStack>
+
+        <StickyNoteStack
+          count={3}
+          color="yellow"
+          fixture="pin"
+          pinColor="rose"
+          size="5x5"
+          className="rotate-[-1.5deg]"
+        >
+          <StickyNotePage title="Location">
+            <div className="flex flex-col items-center justify-center text-center py-1">
+              <span className="font-hand text-0.5 font-bold text-slate-800 lowercase tracking-normal">
+                📍 based in SF &amp; remote
+              </span>
+            </div>
+          </StickyNotePage>
+          <StickyNotePage title="Availability">
+            <div className="flex flex-col items-center justify-center text-center py-1">
+              <span className="font-hand text-0.5 font-bold text-emerald-700 lowercase tracking-normal">
+                ⚡ available for Q3/Q4 contracts
+              </span>
+            </div>
+          </StickyNotePage>
+          <StickyNotePage title="Timezone">
+            <div className="flex flex-col items-center justify-center text-center py-1">
+              <span className="font-hand text-0.5 font-bold text-slate-800 lowercase tracking-normal">
+                ⏱️ PST / UTC-8 (flexible)
+              </span>
+            </div>
+          </StickyNotePage>
+        </StickyNoteStack>
       </div>
     </section>
   );

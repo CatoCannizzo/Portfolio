@@ -71,7 +71,7 @@ export const DoodleUnderline: React.FC<{
   animate?: boolean;
   delay?: number | string;
   lines?: 1 | 2 | 3;
-}> = ({ className, color = '#f43f5e', width = 160, animate = true, delay = '1s', lines = 2 }) => {
+}> = ({ className, color = '#f43f5e', animate = true, delay = '1s', lines = 2 }) => {
   const pathD = UNDERLINE_LINES[lines] || UNDERLINE_LINES[2];
   const delayStr = typeof delay === 'number' ? `${delay}s` : delay;
 
@@ -138,30 +138,6 @@ export const DoodleArrow: React.FC<{
   );
 };
 
-
-// Hand-drawn little paper clip
-export const DoodlePaperclip: React.FC<{
-  className?: string;
-}> = ({ className }) => {
-  return (
-    <svg
-      viewBox="0 0 32 48"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={cn('w-6 h-10 overflow-visible pointer-events-none', className)}
-    >
-      <path
-        d="M10 16 V32 C10 37 14 41 19 41 C24 41 28 37 28 32 V12 C28 6 22 1 16 1 C10 1 4 6 4 12 V34 C4 42 12 47 20 47 C28 47 31 43 31 38"
-        stroke="#64748b"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        vectorEffect="non-scaling-stroke"
-      />
-    </svg>
-  );
-};
-
 // Hand-drawn Scribble Checkmark
 export const DoodleCheck: React.FC<{
   className?: string;
@@ -196,58 +172,4 @@ export const DoodleCheck: React.FC<{
   );
 };
 
-// Hand-drawn Scribble Strikethrough
-export const DoodleStrike: React.FC<{
-  className?: string;
-  color?: string;
-  animate?: boolean;
-  delay?: number | string;
-}> = ({ className, color = '#ef4444', animate = true, delay = '0.3s' }) => {
-  const delayStr = typeof delay === 'number' ? `${delay}s` : delay;
 
-  return (
-    <svg
-      viewBox="0 0 100 12"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={cn('w-full h-3 overflow-visible pointer-events-none', className)}
-      preserveAspectRatio="none"
-      style={{
-        '--animation-delay': delayStr,
-      } as React.CSSProperties}
-    >
-      <path
-        d="M2 7 C25 4, 55 9, 98 5 M10 8 C40 5, 70 8, 92 6"
-        stroke={color}
-        strokeWidth="3"
-        strokeLinecap="round"
-        vectorEffect="non-scaling-stroke"
-        pathLength={1}
-        className={animate ? 'scribble-animate' : ''}
-      />
-    </svg>
-  );
-};
-
-// Hand-drawn Washi Tape Element
-export const DoodleTape: React.FC<{
-  className?: string;
-  variant?: 'yellow' | 'blue' | 'pink';
-}> = ({ className, variant = 'yellow' }) => {
-  const bgClass =
-    variant === 'blue'
-      ? 'washi-tape-blue'
-      : variant === 'pink'
-      ? 'bg-rose-200/70 border-l-2 border-r-2 border-dashed border-rose-400/40'
-      : 'washi-tape';
-
-  return (
-    <div
-      className={cn(
-        'h-6 w-24 rounded-sm pointer-events-none opacity-90',
-        bgClass,
-        className
-      )}
-    />
-  );
-};

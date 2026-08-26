@@ -6,7 +6,7 @@ export const Header: React.FC = () => {
     <header className="sticky top-0 z-40 w-full bg-[#fdfbf7]/90 backdrop-blur-md border-b-2 border-rose-400/80">
       <div className="max-w-5xl mx-auto px-6 sm:pl-32 sm:pr-8 h-16 flex items-center justify-between">
         {/* Brand Logo / Name */}
-        <a href="#" className="group flex items-center gap-2 text-slate-900 font-bold tracking-tight text-0.5 hover:rotate-[-1deg] transition-transform">
+        <a href="/" className="group flex items-center gap-2 text-slate-900 font-bold tracking-tight text-0.5 hover:rotate-[-1deg] transition-transform">
           <span className="w-3 h-3 rounded-full bg-rose-500 inline-block border border-slate-900 shadow-doodle-sm" />
           <span className="font-sans">Alex Morgan</span>
           <span className="font-hand text-rose-500 text-0.5 font-bold ml-0.5 group-hover:inline-block">.notes</span>
@@ -39,7 +39,7 @@ export const Header: React.FC = () => {
 
         {/* Action Button */}
         <div className="flex items-center gap-3">
-          <Button variant="default" size="sm" asChild className="font-sketch text-0.5 tracking-wide">
+          <Button variant="default" size="sm" asChild className="font-sketch text-0.375 tracking-wide">
             <a href="#contact">Say Hello! ✍️</a>
           </Button>
         </div>

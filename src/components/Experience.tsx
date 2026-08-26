@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { DoodleUnderline, DoodleCheck, DoodleTape } from '@/components/Doodles';
+import { DoodleUnderline, DoodleCheck } from '@/components/Doodles';
+import { Highlight } from '@/components/Highlight';
+import { StickyNoteStack, StickyNotePage } from '@/components/StickyNoteStack';
 
 interface Role {
   period: string;
@@ -100,14 +101,21 @@ export const Experience: React.FC = () => {
 
           {/* Sticky Note Quote */}
           <div className="hidden md:block relative mt-line-1">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
-              <DoodleTape variant="yellow" className="w-16 h-4" />
-            </div>
-            <div className="bg-yellow-100 sketch-box p-4 rotate-[-1.5deg] doodle-shadow-sm">
-              <p className="font-hand text-0.5 text-slate-800">
-                "Writing clean code is like good handwriting: it takes deliberate practice and clarity of thought."
-              </p>
-            </div>
+            <StickyNoteStack
+              count={1}
+              color="yellow"
+              fixture="tape"
+              tapeVariant="yellow"
+              fixtureSize="sm"
+              size="square"
+              className="w-full rotate-[-1.5deg]"
+            >
+              <StickyNotePage>
+                <p className="font-hand text-0.5 text-slate-800">
+                  "Writing clean code is like good handwriting: it takes deliberate practice and clarity of thought."
+                </p>
+              </StickyNotePage>
+            </StickyNoteStack>
           </div>
         </div>
 
@@ -124,7 +132,9 @@ export const Experience: React.FC = () => {
             {roles.map((item, index) => (
               <Card
                 key={index}
-                className="p-5 doodle-shadow-hover bg-white hover:bg-[#fffdfa]"
+                variant="default"
+                shadowStyle="hover"
+                className="p-5 hover:bg-[#fffdfa]"
               >
                 <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-1 gap-1">
                   <h3 className="text-0.5 font-bold text-slate-900 font-sans">
@@ -133,8 +143,10 @@ export const Experience: React.FC = () => {
                       @ {item.company}
                     </span>
                   </h3>
-                  <span className="font-mono text-0.375 font-semibold text-slate-500 marker-yellow px-1.5">
-                    {item.period}
+                  <span className="font-mono text-0.375 font-semibold text-slate-500">
+                    <Highlight color="yellow" tilt="straight">
+                      {item.period}
+                    </Highlight>
                   </span>
                 </div>
                 <p className="text-0.5 text-slate-600 font-sans mt-2 mb-3">
