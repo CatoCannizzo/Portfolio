@@ -147,7 +147,7 @@ export const ComponentPlayground: React.FC = () => {
           SUPER_UNBREAKABLE_VARIABLE_IDENTIFIER_WITHOUT_SPACES_0123456789_BUFFER_TEST
         </h4>
         <p className="font-mono text-0.375 text-slate-700 bg-white/80 p-2.5 rounded sketch-box-sm break-all">
-          https://alexmorgan.design/projects/systems/deeply-nested-resource-slug-with-unbroken-characters-and-no-whitespace-at-all-stress-test-1234567890?query=notebook_grid_resilience_test&amp;session=0xdeadbeefc001cafe
+          https://catocannizzo.design/projects/systems/deeply-nested-resource-slug-with-unbroken-characters-and-no-whitespace-at-all-stress-test-1234567890?query=notebook_grid_resilience_test&amp;session=0xdeadbeefc001cafe
         </p>
       </div>
     ),
@@ -211,7 +211,7 @@ export const ComponentPlayground: React.FC = () => {
         </h4>
         <div className="overflow-x-auto p-2.5 rounded bg-slate-900 text-amber-300 font-mono text-0.25 border border-slate-800">
           <code>
-            {`const containerConfig = { id: "notebook-card-001", fixture: "tape-corners", orientation: "top-left-bottom-right", lineInterval: 32, maxAllowedDriftPixels: 0.00001, unbrokenSlug: "https://alexmorgan.design/deep/v2/systems/resilience-stress-test-ultra-long-unbroken-parameter-chain-0123456789" };`}
+            {`const containerConfig = { id: "notebook-card-001", fixture: "tape-corners", orientation: "top-left-bottom-right", lineInterval: 32, maxAllowedDriftPixels: 0.00001, unbrokenSlug: "https://catocannizzo.design/deep/v2/systems/resilience-stress-test-ultra-long-unbroken-parameter-chain-0123456789" };`}
           </code>
         </div>
       </div>
@@ -245,22 +245,22 @@ export const ComponentPlayground: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b-2 border-dashed border-slate-300 pb-line-1">
         <div>
-          <div className="flex items-center gap-2 mb-line-0.5">
+          <div className="relative inline-flex items-center h-line-1 mb-line-1">
             <Badge variant="yellow" className="gap-1.5 text-0.375">
               <Sliders className="w-3.5 h-3.5" />
               <span>Design System Inspector</span>
             </Badge>
-            <span className="font-hand text-0.5 text-slate-500">• Test Bench</span>
+            <span className="font-hand text-0.5 text-slate-500 ml-2">• Test Bench</span>
           </div>
           <div className="relative inline-block">
-            <h1 className="text-1.5 md:text-2 font-bold text-slate-900 tracking-tight font-sans">
+            <h1 className="text-1.5 md:text-2 font-bold text-slate-900 tracking-tight font-sans translate-y-[6px]">
               Component &amp; Fixture Test Suite
             </h1>
-            <DoodleUnderline color="#f43f5e" className="w-64" />
+            <DoodleUnderline color="#f43f5e" className="absolute -bottom-2 left-0 w-full" />
           </div>
         </div>
-        <p className="font-hand text-0.5 text-slate-600 max-w-md">
-          Live interactive playground and compliance matrix to stress-test container types, fixture mechanics, opposite-corner tape, and 32px line rhythm.
+        <p className="font-hand text-0.5 md:text-0.75 text-slate-600 max-w-md align-to-rule">
+          Live interactive playground to test the UI framework used in my portfolio.
         </p>
       </div>
 
@@ -984,7 +984,7 @@ export const ComponentPlayground: React.FC = () => {
                 SUPER_LONG_UNBREAKABLE_IDENTIFIER_STRING_WITHOUT_SPACES_0123456789_BUFFER_TEST
               </h4>
               <p className="font-mono text-0.25 text-slate-800 bg-white/80 p-2.5 rounded sketch-box-sm break-all mb-3 border border-dashed border-amber-300">
-                https://alexmorgan.design/deep/v2/extremely-long-unbroken-slug-without-whitespace-testing-overflow-containment-and-word-breaks?ref=test_bench&amp;env=production&amp;trace_id=9876543210_abcdef
+                https://catocannizzo.design/deep/v2/extremely-long-unbroken-slug-without-whitespace-testing-overflow-containment-and-word-breaks?ref=test_bench&amp;env=production&amp;trace_id=9876543210_abcdef
               </p>
             </div>
             <p className="font-sans text-0.375 text-slate-700 pt-2 border-t border-dashed border-amber-300">
@@ -1084,7 +1084,7 @@ export const ComponentPlayground: React.FC = () => {
               </h4>
               <div className="overflow-x-auto p-2.5 rounded bg-slate-900 text-emerald-300 font-mono text-0.25 border border-slate-800 mb-3">
                 <pre className="whitespace-pre">
-                  {`const systemMatrix = { id: "resilience-matrix-01", status: "PASS", unbrokenEndpoint: "https://alexmorgan.design/deep/v2/systems/grid/audit-trail-logs-with-unbreakable-tokens-2026?auth_mode=tactile_zero_drift_grid_compliance" };`}
+                  {`const systemMatrix = { id: "resilience-matrix-01", status: "PASS", unbrokenEndpoint: "https://catocannizzo.design/deep/v2/systems/grid/audit-trail-logs-with-unbreakable-tokens-2026?auth_mode=tactile_zero_drift_grid_compliance" };`}
                 </pre>
               </div>
             </div>
@@ -1152,7 +1152,7 @@ export const ComponentPlayground: React.FC = () => {
                   URL Wrap in 1:1 Note
                 </span>
                 <p className="font-mono text-0.25 text-slate-800 bg-white/70 p-2 rounded sketch-box-sm break-all mb-2 border border-dashed border-amber-300">
-                  https://alexmorgan.design/deep/resilience/unbroken-postit-slug-0123456789
+                  https://catocannizzo.design/deep/resilience/unbroken-postit-slug-0123456789
                 </p>
                 <p className="font-sans text-0.25 text-amber-950 font-bold">
                   ✓ No pad width blowout

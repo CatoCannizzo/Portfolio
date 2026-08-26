@@ -14,7 +14,7 @@ export const ContactSection: React.FC = () => {
   const [copied, setCopied] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const email = 'hello@alexmorgan.dev';
+  const email = 'hello@catocannizzo.dev';
 
   const handleCopy = () => {
     navigator.clipboard.writeText(email);
@@ -147,7 +147,7 @@ export const ContactSection: React.FC = () => {
                 <textarea
                   required
                   rows={3}
-                  placeholder="Hi Alex, let's talk about..."
+                  placeholder="Hi Cato, let's talk about..."
                   className="w-full p-line-0.5 text-0.5 bg-white sketch-box-sm focus:outline-none focus:ring-2 focus:ring-slate-900 resize-none"
                 />
               </div>
