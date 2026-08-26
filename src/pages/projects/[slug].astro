@@ -1,5 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -25,7 +27,10 @@ const { project, prev, next } = Astro.props;
 ---
 
 <Layout title={`${project.title} — Case Study Notes`}>
-  <div class="max-w-4xl mx-auto px-6 sm:pl-32 sm:pr-8 py-line-2 md:py-line-3">
+  <Header client:load />
+
+  <main class="notebook-grid relative z-10 w-full">
+    <div class="max-w-4xl mx-auto px-6 sm:pl-32 sm:pr-8 py-line-2 md:py-line-3">
     
     <!-- Top Breadcrumb Navigation -->
     <div class="flex items-center justify-between mb-line-1 pb-line-0.5 border-b border-dashed border-slate-300">
@@ -226,5 +231,7 @@ const { project, prev, next } = Astro.props;
       </div>
 
     </div>
-  </div>
+  </main>
+
+  <Footer />
 </Layout>

@@ -60,29 +60,29 @@ export const Experience: React.FC = () => {
         {/* Left Column: Interactive Skills Checklist */}
         <div className="md:col-span-5 flex flex-col justify-between">
           <div>
-            <div className="flex items-center gap-2 mb-line-0.5">
-              <span className="font-sketch text-0.375 uppercase tracking-widest text-slate-500 font-bold">
+<div className="flex items-end  gap-2 mb-line-0.5">
+              <span className="font-sketch text-0.375 uppercase tracking-widest text-slate-500 font-bold align-to-rule">
                 Page 02 // Capabilities
               </span>
             </div>
-            <div className="relative inline-block mb-line-0.5">
-              <h2 className="text-1 font-bold text-slate-900 tracking-tight font-sans">
+            <div className="relative inline-block mb-line-1">
+              <h2 className="text-1 font-bold text-slate-900 tracking-tight font-sans mt-[-8px]">
                 Core Stack &amp; Skills
               </h2>
               <DoodleUnderline color="#f43f5e" className="absolute -bottom-2 left-0 w-full" />
             </div>
             
-            <p className="font-hand text-0.5 text-slate-600 mb-line-1">
+            <p className="font-hand text-0.5 md:text-0.75 text-slate-600 mb-line-1 align-to-rule">
               ✏️ <span className="font-bold">Interactive Checklist:</span> Click any skill to toggle checkmark!
             </p>
 
             {/* Clickable Hand-Drawn Checklist */}
-            <div className="space-y-2.5">
+            <div className="space-y-line-0.5">
               {skills.map((skill) => (
                 <button
                   key={skill.id}
                   onClick={() => toggleSkill(skill.id)}
-                  className="w-full flex items-center gap-3 p-2.5 rounded-lg bg-white/90 sketch-box-sm text-left hover:bg-yellow-50 hover:translate-x-1 transition-all group cursor-pointer"
+                  className="w-full flex items-center gap-3 px-3 py-line-0.25 rounded-lg bg-white/90 sketch-box-sm text-left hover:bg-yellow-50 hover:translate-x-1 transition-all group cursor-pointer"
                 >
                   <div className="w-6 h-6 sketch-box-sm bg-white flex items-center justify-center border-slate-900 shrink-0">
                     <DoodleCheck checked={skill.checked} />
@@ -111,7 +111,7 @@ export const Experience: React.FC = () => {
               className="w-full rotate-[-1.5deg]"
             >
               <StickyNotePage>
-                <p className="font-hand text-0.5 text-slate-800">
+                <p className="font-hand text-0.5 text-slate-800 align-to-rule">
                   "Writing clean code is like good handwriting: it takes deliberate practice and clarity of thought."
                 </p>
               </StickyNotePage>
@@ -120,26 +120,26 @@ export const Experience: React.FC = () => {
         </div>
 
         {/* Right Column: Work Journal Timeline */}
-        <div className="md:col-span-7 space-y-line-0.5">
-          <div className="flex items-center justify-between mb-line-0.5">
-            <span className="font-sketch text-0.375 uppercase tracking-widest text-slate-500 font-bold">
-              Work Journal Timeline
+        <div className="md:col-span-7">
+          <div className="flex items-end justify-between mb-line-1">
+            <span className="font-sketch text-0.375 uppercase tracking-widest text-slate-500 font-bold align-to-rule">
+                 Work Journal Timeline
             </span>
-            <span className="font-hand text-0.5 text-slate-500">2020 — 2026</span>
+            <span className="font-sketch text-0.375 text-slate-500 align-to-rule font-bold">2020 — 2026</span>
           </div>
 
-          <div className="space-y-line-0.5">
+          <div className="space-y-line-1">
             {roles.map((item, index) => (
               <Card
                 key={index}
                 variant="default"
                 shadowStyle="hover"
-                className="p-5 hover:bg-[#fffdfa]"
+                className="p-line-1 hover:bg-[#fffdfa]"
               >
-                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-1 gap-1">
-                  <h3 className="text-0.5 font-bold text-slate-900 font-sans">
+                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-line-0.25 gap-1">
+                  <h3 className="text-0.5 font-bold text-slate-900 font-sans align-to-rule">
                     {item.role}{' '}
-                    <span className="font-hand text-0.5 font-bold text-blue-600">
+                    <span className="font-hand text-0.5 font-bold text-blue-600 align-to-rule">
                       @ {item.company}
                     </span>
                   </h3>
@@ -149,10 +149,10 @@ export const Experience: React.FC = () => {
                     </Highlight>
                   </span>
                 </div>
-                <p className="text-0.5 text-slate-600 font-sans mt-2 mb-3">
+                <p className="text-0.5 text-slate-600 font-sans mt-line-0.25 mb-line-0.5 align-to-rule">
                   {item.summary}
                 </p>
-                <div className="pt-2 border-t border-dashed border-slate-200">
+                <div className="pt-line-0.5 border-t border-dashed border-slate-200">
                   <span className="font-sketch text-0.375 text-slate-500 font-bold">
                     Highlights: <span className="text-slate-800">{item.highlight}</span>
                   </span>
