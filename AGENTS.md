@@ -71,7 +71,7 @@ When text needs to physically rest on top of the blue ruled line:
 
 ## 6. Unified Fixture & Fastener System (`src/components/ui/fixture.tsx`)
 
-Container components (`Card`, `StickyNoteStack`) share a unified fixture engine via `<Fixture type="..." />` or container props (`fixture="tape-corners" | "tape" | "pin" | "staple" | "paperclip" | "none"`).
+Container components (`Card`, `StickyNoteStack`) share a unified fixture engine via `<Fixture type="..." />` or container props (`fixture="tape-corners" | "tape-4-corners" | "tape" | "pin" | "staple" | "paperclip" | "none"`).
 
 ### Fixture Types & Geometry Rules
 1. **`PushPin` (`pin`)**:
@@ -85,10 +85,11 @@ Container components (`Card`, `StickyNoteStack`) share a unified fixture engine 
    - Single washi tape strip with dashed cut edges and semi-translucent colors (`yellow`, `blue`, `pink`, `green`).
    - Standard Tailwind sizes: `sm` (`h-4 w-16`), `default` (`h-6 w-24`), `lg` (`h-7 w-32`).
    - **Isolation Rule**: Positioning coordinate translation (`-translate-x-1/2 -translate-y-1/2`) is placed on an outer wrapper div to prevent CSS rotation properties from overriding translate coordinates.
-4. **`CornerTape` (`tape-corners`)**:
-   - Tapes **two opposite corners** of a card/container diagonally:
+4. **`CornerTape` (`tape-corners` / `tape-4-corners`)**:
+   - Tapes **two opposite corners** diagonally or **all four corners**:
      - `orientation="top-left-bottom-right"` ( \ )
      - `orientation="top-right-bottom-left"` ( / )
+     - `orientation="all"` / `orientation="four-corners"` or `fixture="tape-4-corners"` ( ❖ )
 5. **`Paperclip` (`paperclip`)**:
    - Hand-drawn tactile wire paperclip placed on card edges.
 

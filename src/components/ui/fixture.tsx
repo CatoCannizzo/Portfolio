@@ -9,6 +9,8 @@ export type FixtureType =
   | 'tape'
   | 'tape-corners'
   | 'corner-tape'
+  | 'tape-4-corners'
+  | 'four-corners'
   | 'paperclip';
 
 export type PinColor = 'rose' | 'red' | 'blue' | 'yellow' | 'green' | 'slate';
@@ -23,7 +25,12 @@ export type StaplePosition =
 
 export type { TapeVariant };
 export type TapePosition = 'top-middle' | 'top-left' | 'top-right';
-export type CornerTapeOrientation = 'top-left-bottom-right' | 'top-right-bottom-left';
+export type CornerTapeOrientation =
+  | 'top-left-bottom-right'
+  | 'top-right-bottom-left'
+  | 'all'
+  | 'all-four'
+  | 'four-corners';
 export type PaperclipPosition = 'top-right' | 'top-left' | 'top-middle';
 
 export type FixtureSize = 'default' | 'sm' | 'xs' | 'lg';
@@ -347,23 +354,62 @@ export const CornerTape: React.FC<CornerTapeProps> = ({
     className
   );
 
+  const topLeft = (
+    <div
+      key="top-left"
+      className="absolute z-20 pointer-events-none select-none top-0 left-0"
+      aria-hidden="true"
+    >
+      <div className={cn(baseTape, '-translate-x-[25%] -translate-y-[25%] rotate-[-38deg]')} />
+    </div>
+  );
+
+  const topRight = (
+    <div
+      key="top-right"
+      className="absolute z-20 pointer-events-none select-none top-0 right-0"
+      aria-hidden="true"
+    >
+      <div className={cn(baseTape, 'translate-x-[25%] -translate-y-[25%] rotate-[38deg]')} />
+    </div>
+  );
+
+  const bottomLeft = (
+    <div
+      key="bottom-left"
+      className="absolute z-20 pointer-events-none select-none bottom-0 left-0"
+      aria-hidden="true"
+    >
+      <div className={cn(baseTape, '-translate-x-[25%] translate-y-[25%] rotate-[38deg]')} />
+    </div>
+  );
+
+  const bottomRight = (
+    <div
+      key="bottom-right"
+      className="absolute z-20 pointer-events-none select-none bottom-0 right-0"
+      aria-hidden="true"
+    >
+      <div className={cn(baseTape, 'translate-x-[25%] translate-y-[25%] rotate-[-38deg]')} />
+    </div>
+  );
+
+  if (orientation === 'all' || orientation === 'all-four' || orientation === 'four-corners') {
+    return (
+      <>
+        {topLeft}
+        {topRight}
+        {bottomLeft}
+        {bottomRight}
+      </>
+    );
+  }
+
   if (orientation === 'top-right-bottom-left') {
     return (
       <>
-        {/* Top-Right Corner Tape */}
-        <div
-          className="absolute z-20 pointer-events-none select-none top-0 right-0"
-          aria-hidden="true"
-        >
-          <div className={cn(baseTape, 'translate-x-[25%] -translate-y-[25%] rotate-[38deg]')} />
-        </div>
-        {/* Bottom-Left Corner Tape */}
-        <div
-          className="absolute z-20 pointer-events-none select-none bottom-0 left-0"
-          aria-hidden="true"
-        >
-          <div className={cn(baseTape, '-translate-x-[25%] translate-y-[25%] rotate-[38deg]')} />
-        </div>
+        {topRight}
+        {bottomLeft}
       </>
     );
   }
@@ -371,20 +417,8 @@ export const CornerTape: React.FC<CornerTapeProps> = ({
   // Default: 'top-left-bottom-right'
   return (
     <>
-      {/* Top-Left Corner Tape */}
-      <div
-        className="absolute z-20 pointer-events-none select-none top-0 left-0"
-        aria-hidden="true"
-      >
-        <div className={cn(baseTape, '-translate-x-[25%] -translate-y-[25%] rotate-[-38deg]')} />
-      </div>
-      {/* Bottom-Right Corner Tape */}
-      <div
-        className="absolute z-20 pointer-events-none select-none bottom-0 right-0"
-        aria-hidden="true"
-      >
-        <div className={cn(baseTape, 'translate-x-[25%] translate-y-[25%] rotate-[-38deg]')} />
-      </div>
+      {topLeft}
+      {bottomRight}
     </>
   );
 };
@@ -574,7 +608,7 @@ export const Fixture: React.FC<FixtureProps> = ({
   tapeVariant = 'yellow',
   tapePosition = 'top-middle',
   tapeAngle,
-  cornerOrientation = 'top-left-bottom-right',
+  cornerOrientation,
   paperclipPosition = 'top-right',
   paperclipAngle,
   size = 'default',
@@ -616,7 +650,17 @@ export const Fixture: React.FC<FixtureProps> = ({
       return (
         <CornerTape
           variant={tapeVariant}
-          orientation={cornerOrientation}
+          orientation={cornerOrientation ?? 'top-left-bottom-right'}
+          size={size}
+          className={className}
+        />
+      );
+    case 'tape-4-corners':
+    case 'four-corners':
+      return (
+        <CornerTape
+          variant={tapeVariant}
+          orientation={cornerOrientation ?? 'all'}
           size={size}
           className={className}
         />

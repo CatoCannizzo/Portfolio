@@ -81,10 +81,10 @@ For large display headings (`text-1.5` / `text-2`), use `translate-y-[6px]` so l
 
 A unified physical fastener system that attaches to any container (`Card`, `Badge`, `StickyNoteStack`):
 
-- **Washi Tape Strip (`<Tape />` / `<DoodleTape />`)**: Translucent washi tape with dashed cut edges. Supports positions `top-middle`, `top-left`, `top-right` and color variants `yellow`, `blue`, `pink`, `green`.
-- **Opposite-Corner Tape (`<CornerTape />`)**: Tapes **two opposite corners** of a card diagonally:
+- **Corner Washi Tape (`<CornerTape />`)**: Tapes **two opposite corners** diagonally or **all four corners**:
   - `orientation="top-left-bottom-right"` ( \ )
   - `orientation="top-right-bottom-left"` ( / )
+  - `orientation="all"` / `orientation="four-corners"` or `fixture="tape-4-corners"` ( ❖ )
 - **3D Pushpin (`<PushPin />` / `<PushPinIcon />`)**: Realistic pushpin with metallic head, needle shadow, and glare in 6 colors (`rose`, `red`, `blue`, `yellow`, `green`, `slate`).
 - **Metallic Staple (`<Staple />`)**: Dark gunmetal wire SVG with puncture slits and wire shadow.
 - **Wire Paperclip (`<Paperclip />` / `<DoodlePaperclip />`)**: Tactile paperclip placed on card edges.

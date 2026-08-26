@@ -358,8 +358,8 @@ export const ComponentPlayground: React.FC = () => {
               <label className="block font-sketch font-bold uppercase text-slate-700 mb-1.5">
                 3. Fixture / Fastener Type
               </label>
-              <div className="grid grid-cols-3 gap-2">
-                {(['tape', 'tape-corners', 'pin', 'staple', 'paperclip', 'none'] as const).map((f) => (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                {(['tape', 'tape-corners', 'tape-4-corners', 'pin', 'staple', 'paperclip', 'none'] as const).map((f) => (
                   <button
                     key={f}
                     onClick={() => setFixtureType(f)}
@@ -370,9 +370,11 @@ export const ComponentPlayground: React.FC = () => {
                     }`}
                   >
                     {f === 'tape'
-                      ? 'Washi Tape Strip 🏷️'
+                      ? 'Washi Strip 🏷️'
                       : f === 'tape-corners'
-                      ? 'Corner Tape 🌟'
+                      ? '2 Corners 🌟'
+                      : f === 'tape-4-corners'
+                      ? '4 Corners ❖'
                       : f === 'pin'
                       ? 'Pushpin'
                       : f === 'staple'
@@ -430,27 +432,44 @@ export const ComponentPlayground: React.FC = () => {
             )}
 
             {/* Fixture Specific Controls: Corner Tape */}
-            {fixtureType === 'tape-corners' && (
+            {(fixtureType === 'tape-corners' || fixtureType === 'tape-4-corners') && (
               <div className="p-2.5 bg-yellow-50/80 sketch-box-sm space-y-2">
                 <span className="font-sketch font-bold text-slate-800 block">
                   Corner Tape Options:
                 </span>
-                <div className="flex gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5">
                   <button
-                    onClick={() => setCornerOrient('top-left-bottom-right')}
-                    className={`flex-1 py-1 px-2 text-0.375 rounded sketch-box-sm font-sketch ${
-                      cornerOrient === 'top-left-bottom-right' ? 'bg-yellow-300 font-bold' : 'bg-white'
+                    onClick={() => {
+                      setFixtureType('tape-corners');
+                      setCornerOrient('top-left-bottom-right');
+                    }}
+                    className={`py-1 px-2 text-0.375 rounded sketch-box-sm font-sketch ${
+                      fixtureType === 'tape-corners' && cornerOrient === 'top-left-bottom-right' ? 'bg-yellow-300 font-bold' : 'bg-white'
                     }`}
                   >
                     Top-Left &amp; Bottom-Right ( \ )
                   </button>
                   <button
-                    onClick={() => setCornerOrient('top-right-bottom-left')}
-                    className={`flex-1 py-1 px-2 text-0.375 rounded sketch-box-sm font-sketch ${
-                      cornerOrient === 'top-right-bottom-left' ? 'bg-yellow-300 font-bold' : 'bg-white'
+                    onClick={() => {
+                      setFixtureType('tape-corners');
+                      setCornerOrient('top-right-bottom-left');
+                    }}
+                    className={`py-1 px-2 text-0.375 rounded sketch-box-sm font-sketch ${
+                      fixtureType === 'tape-corners' && cornerOrient === 'top-right-bottom-left' ? 'bg-yellow-300 font-bold' : 'bg-white'
                     }`}
                   >
                     Top-Right &amp; Bottom-Left ( / )
+                  </button>
+                  <button
+                    onClick={() => {
+                      setFixtureType('tape-4-corners');
+                      setCornerOrient('all');
+                    }}
+                    className={`py-1 px-2 text-0.375 rounded sketch-box-sm font-sketch ${
+                      fixtureType === 'tape-4-corners' || cornerOrient === 'all' ? 'bg-yellow-300 font-bold' : 'bg-white'
+                    }`}
+                  >
+                    All 4 Corners ( ❖ )
                   </button>
                 </div>
                 <div className="flex items-center gap-2 pt-1">
@@ -689,7 +708,7 @@ export const ComponentPlayground: React.FC = () => {
           Corner Tape Architecture
         </h2>
         <p className="text-0.5 text-slate-600 font-sans mb-line-1 max-w-2xl">
-          Instead of single top-center tape, washi tape strips span two opposite corners with calculated diagonal rotations (<code className="text-0.375 bg-yellow-100 px-1 py-0.5 rounded">top-left-bottom-right</code> or <code className="text-0.375 bg-yellow-100 px-1 py-0.5 rounded">top-right-bottom-left</code>).
+          Instead of single top-center tape, washi tape strips span two opposite corners with calculated diagonal rotations (<code className="text-0.375 bg-yellow-100 px-1 py-0.5 rounded">top-left-bottom-right</code> or <code className="text-0.375 bg-yellow-100 px-1 py-0.5 rounded">top-right-bottom-left</code>) or all four corners (<code className="text-0.375 bg-yellow-100 px-1 py-0.5 rounded">tape-4-corners</code> / <code className="text-0.375 bg-yellow-100 px-1 py-0.5 rounded">cornerOrientation="all"</code>).
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-line-1 pt-2">
@@ -747,18 +766,21 @@ export const ComponentPlayground: React.FC = () => {
             </p>
           </StickyNoteStack>
 
-          {/* Card 4: Green with Code Snippet */}
+          {/* Card 4: Paper with All 4 Corners Washi Tape */}
           <Card
-            variant="green"
-            fixture="tape-corners"
-            fixtureProps={{ cornerOrientation: 'top-right-bottom-left', tapeVariant: 'green' }}
+            variant="paper"
+            fixture="tape-4-corners"
+            fixtureProps={{ tapeVariant: 'yellow' }}
             className="rotate-[0.5deg] hover:rotate-0 transition-transform"
           >
-            <span className="font-sketch text-0.375 font-bold text-emerald-900 block mb-1">
-              Emerald Spec Memo
+            <span className="font-sketch text-0.375 font-bold text-amber-900 block mb-1">
+              All 4 Corners Washi Tape (❖)
             </span>
-            <pre className="font-mono text-0.25 bg-emerald-200/50 p-2 rounded sketch-box-sm text-slate-800">
-              {`<Card fixture="tape-corners"\n  cornerOrientation="..." />`}
+            <h4 className="font-sans font-bold text-0.5 text-slate-900 mb-1">
+              Quad Washi Fastener
+            </h4>
+            <pre className="font-mono text-0.25 bg-amber-100/60 p-2 rounded sketch-box-sm text-slate-800">
+              {`<Card fixture="tape-4-corners"\n  fixtureProps={{ tapeVariant: 'yellow' }} />`}
             </pre>
           </Card>
         </div>
@@ -785,44 +807,50 @@ export const ComponentPlayground: React.FC = () => {
           <div className="flex items-center gap-2 mb-3 pb-2 border-b border-dashed border-slate-300">
             <span className="w-2 h-2 rounded-full bg-amber-500" />
             <h3 className="font-sketch text-0.75 font-bold text-slate-800 uppercase tracking-wide">
-              Container Type A // Standard Cards (6 Fixture Types)
+              Container Type A // Standard Cards (7 Fixture Types)
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
             {/* 1. None */}
-            <Card variant="paper" fixture="none" className="p-4 text-center">
+            <Card variant="paper" fixture="none" className="p-3 text-center">
               <span className="font-sketch text-0.375 font-bold text-slate-500 block mb-1">Fixture: none</span>
               <p className="font-sans text-0.375 text-slate-800 font-bold">Standard Card</p>
             </Card>
 
             {/* 2. Pin */}
-            <Card variant="yellow" fixture="pin" fixtureProps={{ pinColor: 'rose', size: 'sm' }} className="p-4 text-center">
+            <Card variant="yellow" fixture="pin" fixtureProps={{ pinColor: 'rose', size: 'sm' }} className="p-3 text-center">
               <span className="font-sketch text-0.375 font-bold text-slate-600 block mb-1">Fixture: pin (sm)</span>
               <p className="font-sans text-0.375 text-slate-900 font-bold">3D Pushpin</p>
             </Card>
 
             {/* 3. Staple */}
-            <Card variant="blue" fixture="staple" fixtureProps={{ staplePosition: 'top-left', size: 'sm' }} className="p-4 text-center">
+            <Card variant="blue" fixture="staple" fixtureProps={{ staplePosition: 'top-left', size: 'sm' }} className="p-3 text-center">
               <span className="font-sketch text-0.375 font-bold text-slate-600 block mb-1">Fixture: staple (sm)</span>
               <p className="font-sans text-0.375 text-slate-900 font-bold">Gunmetal Wire</p>
             </Card>
 
             {/* 4. Single Tape */}
-            <Card variant="pink" fixture="tape" fixtureProps={{ tapeVariant: 'pink', size: 'sm' }} className="p-4 text-center">
+            <Card variant="pink" fixture="tape" fixtureProps={{ tapeVariant: 'pink', size: 'sm' }} className="p-3 text-center">
               <span className="font-sketch text-0.375 font-bold text-slate-600 block mb-1">Fixture: tape (sm)</span>
               <p className="font-sans text-0.375 text-slate-900 font-bold">Washi Strip</p>
             </Card>
 
-            {/* 5. Corner Tape */}
-            <Card variant="green" fixture="tape-corners" fixtureProps={{ tapeVariant: 'green', size: 'sm' }} className="p-4 text-center">
-              <span className="font-sketch text-0.375 font-bold text-slate-600 block mb-1">Fixture: tape-corners (sm)</span>
+            {/* 5. Corner Tape (2 corners) */}
+            <Card variant="green" fixture="tape-corners" fixtureProps={{ tapeVariant: 'green', size: 'sm' }} className="p-3 text-center">
+              <span className="font-sketch text-0.375 font-bold text-slate-600 block mb-1">Fixture: 2-corners</span>
               <p className="font-sans text-0.375 text-slate-900 font-bold">Dual Corners</p>
             </Card>
 
-            {/* 6. Paperclip */}
-            <Card variant="white" fixture="paperclip" fixtureProps={{ size: 'sm' }} className="p-4 text-center">
-              <span className="font-sketch text-0.375 font-bold text-slate-500 block mb-1">Fixture: paperclip (sm)</span>
+            {/* 6. 4-Corners Tape */}
+            <Card variant="yellow" fixture="tape-4-corners" fixtureProps={{ tapeVariant: 'yellow', size: 'sm' }} className="p-3 text-center">
+              <span className="font-sketch text-0.375 font-bold text-slate-600 block mb-1">Fixture: 4-corners</span>
+              <p className="font-sans text-0.375 text-slate-900 font-bold">4 Washi Corners</p>
+            </Card>
+
+            {/* 7. Paperclip */}
+            <Card variant="white" fixture="paperclip" fixtureProps={{ size: 'sm' }} className="p-3 text-center">
+              <span className="font-sketch text-0.375 font-bold text-slate-500 block mb-1">Fixture: paperclip</span>
               <p className="font-sans text-0.375 text-slate-800 font-bold">Wire Paperclip</p>
             </Card>
           </div>

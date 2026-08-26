@@ -38,7 +38,7 @@ export const ContactSection: React.FC = () => {
           variant="paper"
           borderStyle="thick"
           shadowStyle="lg"
-          fixture="tape"
+          fixture="tape-4-corners"
           fixtureProps={{ tapeVariant: 'yellow', size: 'lg' }}
           className="p-line-1.5 sm:p-line-2 text-center flex flex-col items-center justify-center relative"
         >
