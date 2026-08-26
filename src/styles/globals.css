@@ -13,8 +13,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 222 47% 11%;
-    --primary-foreground: 45 40% 98%;
+    --primary: 48 96% 89%;
+    --primary-foreground: 222 47% 11%;
 
     --secondary: 210 40% 96%;
     --secondary-foreground: 222 47% 11%;
@@ -57,6 +57,7 @@
 :root {
   --notebook-line: 32px;
   --baseline-offset: 5px;
+  --hole-punch-interval: 384px; /* Vertical repeat interval for notebook hole punches (12 lines = 384px, matching original loose-leaf spacing) */
 }
 
 .notebook-paper-bg {
@@ -142,44 +143,212 @@
   box-shadow: 1px 1px 0px 0px #1e293b;
 }
 
-/* Highlighter Marker Effects */
+.marker-yellow,
+.marker-blue,
+.marker-pink,
+.marker-green {
+  --marker-rot: -1.5deg;
+  --marker-skew: -12deg;
+  --marker-radius: 3px 6px 4px 5px;
+  --marker-inset-top: 24%;
+  --marker-inset-bottom: -2px;
+  --marker-inset-left: -4px;
+  --marker-inset-right: -4px;
+  position: relative;
+  display: inline;
+  padding: 0;
+  z-index: 1;
+}
+
+/* Default per-color subtle variations */
 .marker-yellow {
-  background: linear-gradient(104deg, rgba(254, 240, 138, 0) 1%, rgba(254, 240, 138, 0.8) 3%, rgba(254, 240, 138, 0.75) 95%, rgba(254, 240, 138, 0) 99%);
-  padding: 0.1em 0.35em;
-  border-radius: 4px 10px 6px 8px;
-  display: inline-block;
+  --marker-rot: -1.8deg;
+  --marker-skew: -14deg;
+  --marker-radius: 3px 8px 4px 7px;
 }
 
 .marker-blue {
-  background: linear-gradient(104deg, rgba(186, 230, 253, 0) 1%, rgba(186, 230, 253, 0.8) 3%, rgba(186, 230, 253, 0.75) 95%, rgba(186, 230, 253, 0) 99%);
-  padding: 0.1em 0.35em;
-  border-radius: 6px 8px 5px 12px;
-  display: inline-block;
+  --marker-rot: 1.6deg;
+  --marker-skew: -15deg;
+  --marker-radius: 6px 4px 7px 10px;
 }
 
 .marker-pink {
-  background: linear-gradient(104deg, rgba(251, 207, 232, 0) 1%, rgba(251, 207, 232, 0.8) 3%, rgba(251, 207, 232, 0.75) 95%, rgba(251, 207, 232, 0) 99%);
-  padding: 0.1em 0.35em;
-  border-radius: 8px 4px 10px 5px;
-  display: inline-block;
+  --marker-rot: -1.2deg;
+  --marker-skew: 12deg; /* reverse slant by default for pink */
+  --marker-radius: 8px 3px 9px 5px;
 }
 
-/* Washi Tape Strip */
-.washi-tape {
-  background: rgba(254, 240, 138, 0.65);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  transform: rotate(-2deg);
-  border-left: 2px dashed rgba(202, 138, 4, 0.4);
-  border-right: 2px dashed rgba(202, 138, 4, 0.4);
+.marker-green {
+  --marker-rot: 0deg;
+  --marker-skew: 0deg; /* straight cut by default for green */
+  --marker-radius: 2px 2px 3px 3px;
 }
 
-.washi-tape-blue {
-  background: rgba(186, 230, 253, 0.7);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  transform: rotate(1.5deg);
-  border-left: 2px dashed rgba(59, 130, 246, 0.4);
-  border-right: 2px dashed rgba(59, 130, 246, 0.4);
+/* Base pseudo-element for all markers with variable transform & height insets */
+.marker-yellow::before,
+.marker-blue::before,
+.marker-pink::before,
+.marker-green::before {
+  content: "";
+  position: absolute;
+  top: var(--marker-inset-top, 24%);
+  bottom: var(--marker-inset-bottom, -2px);
+  left: var(--marker-inset-left, -4px);
+  right: var(--marker-inset-right, -4px);
+  z-index: -1;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: var(--marker-opacity, 0.72);
+  transform-origin: center center;
+  transform: skewX(var(--marker-skew, -12deg)) rotate(var(--marker-rot, -1deg));
+  border-radius: var(--marker-radius, 4px 8px 5px 7px);
 }
+
+/* Color Gradient Inks - High Translucency to Reveal Ruled Paper Lines */
+.marker-yellow::before {
+  background: linear-gradient(
+    104deg,
+    rgba(254, 240, 138, 0.15) 0%,
+    rgba(254, 240, 138, 0.68) 4%,
+    rgba(253, 224, 71, 0.62) 50%,
+    rgba(254, 240, 138, 0.66) 94%,
+    rgba(254, 240, 138, 0.15) 100%
+  );
+}
+
+.marker-blue::before {
+  background: linear-gradient(
+    102deg,
+    rgba(186, 230, 253, 0.15) 0%,
+    rgba(186, 230, 253, 0.68) 4%,
+    rgba(147, 197, 253, 0.62) 50%,
+    rgba(186, 230, 253, 0.66) 94%,
+    rgba(186, 230, 253, 0.15) 100%
+  );
+}
+
+.marker-pink::before {
+  background: linear-gradient(
+    105deg,
+    rgba(251, 207, 232, 0.15) 0%,
+    rgba(251, 207, 232, 0.68) 4%,
+    rgba(249, 168, 212, 0.62) 50%,
+    rgba(251, 207, 232, 0.66) 94%,
+    rgba(251, 207, 232, 0.15) 100%
+  );
+}
+
+.marker-green::before {
+  background: linear-gradient(
+    103deg,
+    rgba(187, 247, 208, 0.15) 0%,
+    rgba(187, 247, 208, 0.68) 4%,
+    rgba(134, 239, 172, 0.62) 50%,
+    rgba(187, 247, 208, 0.66) 94%,
+    rgba(187, 247, 208, 0.15) 100%
+  );
+}
+
+/* ========================================================================= */
+/* 8 EXTREME PRESET MODIFIER CLASSES (Angles, Height & Chisel Variations)    */
+/* ========================================================================= */
+
+/* 1. Heavy Classic Upward Chisel: Bold, pronounced slant & upward hand angle */
+.marker-tilt-1 {
+  --marker-rot: -3.5deg;
+  --marker-skew: -16deg;
+  --marker-inset-top: 20%;
+  --marker-inset-bottom: -3px;
+  --marker-inset-left: -5px;
+  --marker-inset-right: -5px;
+  --marker-radius: 2px 8px 3px 10px;
+}
+
+/* 2. Reversed Angle (Left-Handed Chisel): Positive skew with downward slope */
+.marker-tilt-2 {
+  --marker-rot: 3.0deg;
+  --marker-skew: 16deg;
+  --marker-inset-top: 24%;
+  --marker-inset-bottom: -2px;
+  --marker-inset-left: -5px;
+  --marker-inset-right: -5px;
+  --marker-radius: 10px 2px 8px 3px;
+}
+
+/* 3. Straight Vertical Stamp: 0° zero-skew 90-degree boxy cut */
+.marker-tilt-3 {
+  --marker-rot: 0deg;
+  --marker-skew: 0deg;
+  --marker-inset-top: 26%;
+  --marker-inset-bottom: -2px;
+  --marker-inset-left: -3px;
+  --marker-inset-right: -3px;
+  --marker-radius: 1px 1px 2px 2px;
+}
+
+/* 4. Extreme Acute Diamond / Razor Slant: Heavy 25° chisel cut */
+.marker-tilt-4 {
+  --marker-rot: -2.0deg;
+  --marker-skew: -25deg;
+  --marker-inset-top: 22%;
+  --marker-inset-bottom: -3px;
+  --marker-inset-left: -8px;
+  --marker-inset-right: -8px;
+  --marker-radius: 1px 14px 2px 12px;
+}
+
+/* 5. Extra Tall / Max Height Block: Juicy saturated block overflowing line */
+.marker-tilt-5 {
+  --marker-rot: 1.2deg;
+  --marker-skew: -8deg;
+  --marker-inset-top: 10%;
+  --marker-inset-bottom: -5px;
+  --marker-inset-left: -6px;
+  --marker-inset-right: -6px;
+  --marker-radius: 6px 5px 7px 5px;
+}
+
+/* 6. Slim Lower-Half Underline Stripe: Low height highlighting only lower text */
+.marker-tilt-6 {
+  --marker-rot: -1.2deg;
+  --marker-skew: -14deg;
+  --marker-inset-top: 55%;
+  --marker-inset-bottom: -3px;
+  --marker-inset-left: -4px;
+  --marker-inset-right: -4px;
+  --marker-radius: 2px 5px 2px 4px;
+}
+
+/* 7. Steep Downward Cascade: Extreme positive tilt with reverse slant */
+.marker-tilt-7 {
+  --marker-rot: 4.8deg;
+  --marker-skew: 14deg;
+  --marker-inset-top: 22%;
+  --marker-inset-bottom: -3px;
+  --marker-inset-left: -6px;
+  --marker-inset-right: -6px;
+  --marker-radius: 8px 2px 10px 2px;
+}
+
+/* 8. Steep Upward Slash: Dynamic aggressive -5.5° slash with steep slant */
+.marker-tilt-8 {
+  --marker-rot: -5.5deg;
+  --marker-skew: -22deg;
+  --marker-inset-top: 18%;
+  --marker-inset-bottom: -3px;
+  --marker-inset-left: -8px;
+  --marker-inset-right: -8px;
+  --marker-radius: 2px 14px 2px 15px;
+}
+
+/* Semantic Aliases */
+.marker-tilt-straight, .marker-tilt-vertical { --marker-rot: 0deg; --marker-skew: 0deg; --marker-inset-top: 26%; --marker-radius: 1px; }
+.marker-tilt-reverse { --marker-rot: 3.0deg; --marker-skew: 16deg; --marker-inset-top: 24%; }
+.marker-tilt-tall { --marker-inset-top: 10%; --marker-inset-bottom: -5px; }
+.marker-tilt-slim { --marker-inset-top: 55%; --marker-inset-bottom: -3px; }
+.marker-tilt-diamond { --marker-rot: -2.0deg; --marker-skew: -25deg; --marker-inset-top: 22%; --marker-radius: 1px 14px 2px 12px; }
+.marker-tilt-wild { --marker-rot: -5.5deg; --marker-skew: -22deg; --marker-inset-top: 18%; }
 
 /* Scribble SVG animation */
 @keyframes scribble-draw {
@@ -209,13 +378,12 @@
   }
 }
 
-/* Notebook hole punches */
-.hole-punch {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #e2dcd0;
-  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.8);
+/* Notebook hole punches (repeating pattern for left margin) */
+.notebook-hole-punches {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Ccircle cx='9' cy='10' r='9' fill='rgba(255,255,255,0.85)'/%3E%3Ccircle cx='9' cy='9' r='9' fill='%23e2dcd0'/%3E%3Cdefs%3E%3CradialGradient id='hps' cx='35%25' cy='35%25' r='65%25'%3E%3Cstop offset='50%25' stop-color='%23000000' stop-opacity='0'/%3E%3Cstop offset='85%25' stop-color='%23000000' stop-opacity='0.18'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.32'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='9' cy='9' r='9' fill='url(%23hps)'/%3E%3C/svg%3E");
+  background-repeat: repeat-y;
+  background-position: center 103px;
+  background-size: 18px var(--hole-punch-interval, 384px);
 }
 
 /* ========================================================================= */
@@ -359,3 +527,104 @@
   width: 100vw;
   height: 100vh;
 }
+
+/* Tactile Slim Scrollbar for Internal Containers & Sticky Notes */
+.notebook-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(30, 41, 59, 0.3) transparent;
+}
+
+.notebook-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.notebook-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.notebook-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(30, 41, 59, 0.25);
+  border-radius: 4px;
+}
+
+.notebook-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(30, 41, 59, 0.5);
+}
+
+/* ========================================================================= */
+/* TACTILE STICKY NOTE SHUFFLE & JIGGLE ANIMATIONS                           */
+/* ========================================================================= */
+
+@keyframes sticky-note-shuffle-out {
+  0% {
+    transform: translate(0, 0) rotate(-0.5deg) scale(1);
+    box-shadow: 2px 3px 0px 0px rgba(30, 41, 59, 0.85);
+    z-index: 30;
+  }
+  35% {
+    transform: translate(42px, -12px) rotate(8.5deg) scale(1.03);
+    box-shadow: 6px 12px 18px rgba(30, 41, 59, 0.2);
+    z-index: 30;
+  }
+  65% {
+    transform: translate(10px, 8px) rotate(-3.5deg) scale(0.98);
+    z-index: 2;
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    z-index: 2;
+  }
+}
+
+@keyframes sticky-note-shuffle-in {
+  0% {
+    transform: scale(0.96) translateY(4px);
+    opacity: 0.82;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes sticky-note-jiggle {
+  0%, 100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  25% {
+    transform: rotate(-1.2deg) translateY(-2px);
+  }
+  75% {
+    transform: rotate(1deg) translateY(-1px);
+  }
+}
+
+.animate-sticky-shuffle-out {
+  animation: sticky-note-shuffle-out 0.42s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  pointer-events: none;
+}
+
+.animate-sticky-shuffle-in {
+  animation: sticky-note-shuffle-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
+}
+
+.animate-sticky-jiggle {
+  animation: sticky-note-jiggle 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hover-sticky-jiggle:hover {
+  animation: sticky-note-jiggle 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-sticky-shuffle-out,
+  .animate-sticky-shuffle-in,
+  .animate-sticky-jiggle,
+  .hover-sticky-jiggle:hover {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+
