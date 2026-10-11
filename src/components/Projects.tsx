@@ -10,7 +10,7 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 import { DoodleUnderline } from '@/components/Doodles';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from '@matita/icons/react';
 import { projectsData, type Project } from '@/data/projects';
 
 export const Projects: React.FC = () => {
@@ -94,9 +94,10 @@ export const Projects: React.FC = () => {
                 >
                   <a
                     href={`/projects/${project.slug}`}
-                    className="flex items-center justify-center gap-2"
+                    className="flex items-center justify-center gap-1.5"
                   >
                     <span>Open Case Study</span>
+                    <ArrowUpRight size={14} />
                   </a>
                 </Button>
               </div>

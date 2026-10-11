@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { DoodleCircle, DoodleArrow, DoodleUnderline } from '@/components/Doodles';
 import { StickyNoteStack, StickyNotePage } from '@/components/StickyNoteStack';
 import { Highlight } from '@/components/Highlight';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from '@matita/icons/react';
 
 export const Hero: React.FC = () => {
   return (
@@ -57,7 +57,7 @@ export const Hero: React.FC = () => {
               <Button variant="default" size="lg" asChild className="group font-sketch text-0.5">
                 <a href="#projects" className="flex items-center gap-2">
                   <span>Explore Works</span>
-                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
               </Button>
             </div>

@@ -9,6 +9,7 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 import { DoodleUnderline } from '@/components/Doodles';
+import { Check, Copy, SquarePen, CircleCheck, Send } from '@matita/icons/react';
 
 export const ContactSection: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -44,7 +45,9 @@ export const ContactSection: React.FC = () => {
         >
           {/* Air Mail Hand-Drawn Stamp in Top Right */}
           <div className="hidden sm:block absolute top-6 right-6 border-2 border-dashed border-rose-500 p-2 rotate-6 text-rose-500 font-sketch text-0.375 uppercase tracking-widest pointer-events-none select-none">
-            <span className="block font-bold">AIR MAIL ✈️</span>
+            <span className="block font-bold">
+              AIR MAIL <Send size={12} className="inline ml-0.5 -rotate-12" />
+            </span>
             <span>POSTAGE PAID</span>
           </div>
 
@@ -74,9 +77,19 @@ export const ContactSection: React.FC = () => {
               variant="default"
               size="default"
               onClick={handleCopy}
-              className="font-sketch text-0.5 tracking-wide"
+              className="font-sketch text-0.5 tracking-wide inline-flex items-center gap-2"
             >
-              {copied ? '✅ Copied to Clipboard!' : '📋 Copy Email'}
+              {copied ? (
+                <>
+                  <Check size={16} className="text-emerald-700" />
+                  <span>Copied to Clipboard!</span>
+                </>
+              ) : (
+                <>
+                  <Copy size={16} />
+                  <span>Copy Email</span>
+                </>
+              )}
             </Button>
           </div>
 
@@ -85,9 +98,10 @@ export const ContactSection: React.FC = () => {
             <Button
               variant="link"
               onClick={() => setIsDialogOpen(true)}
-              className="p-0 h-auto font-hand font-bold text-0.5 text-slate-900 hover:text-blue-600 cursor-pointer"
+              className="p-0 h-auto font-hand font-bold text-0.5 text-slate-900 hover:text-blue-600 cursor-pointer inline-flex items-center gap-1.5"
             >
-              Send a Scribble Message ✍️
+              <span>Send a Scribble Message</span>
+              <SquarePen size={16} />
             </Button>
           </div>
         </Card>
@@ -107,8 +121,9 @@ export const ContactSection: React.FC = () => {
 
           {submitted ? (
             <div className="py-8 text-center bg-yellow-50 sketch-box-sm my-2">
-              <p className="font-sketch text-0.5 font-bold text-slate-900">
-                ✏️ Note dispatched successfully!
+              <p className="font-sketch text-0.5 font-bold text-slate-900 inline-flex items-center justify-center gap-1.5">
+                <CircleCheck size={18} className="text-emerald-600" />
+                <span>Note dispatched successfully!</span>
               </p>
               <p className="font-hand text-0.5 text-slate-600 mt-1">
                 Thanks for writing. Check your inbox soon.
@@ -162,8 +177,14 @@ export const ContactSection: React.FC = () => {
                 >
                   Cancel
                 </Button>
-                <Button type="submit" variant="default" size="sm" className="font-sketch text-0.375">
-                  Send Note 🚀
+                <Button
+                  type="submit"
+                  variant="default"
+                  size="sm"
+                  className="font-sketch text-0.375 inline-flex items-center gap-1.5"
+                >
+                  <span>Send Note</span>
+                  <Send size={14} />
                 </Button>
               </div>
             </form>

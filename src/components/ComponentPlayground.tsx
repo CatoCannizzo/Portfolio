@@ -22,10 +22,22 @@ import { Highlight } from '@/components/Highlight';
 import { DoodleCircle, DoodleUnderline, DoodleCheck, DoodleArrow } from '@/components/Doodles';
 import { type ContainerColor } from '@/lib/container-tokens';
 import {
-  Grid,
+  Grid3x3,
   Sliders,
   RefreshCw,
-} from 'lucide-react';
+  Pencil,
+  Star,
+  TriangleAlert,
+  FileText,
+  Ruler,
+  Paperclip as PaperclipIcon,
+  Layers,
+  Send,
+  Zap,
+  ShieldCheck,
+  Crosshair,
+  Check,
+} from '@matita/icons/react';
 
 type ContentSizeType =
   | 'micro'
@@ -71,8 +83,9 @@ export const ComponentPlayground: React.FC = () => {
       </span>
     ),
     short: (
-      <p className="font-hand text-0.5 text-slate-800">
-        ✏️ Quick notebook reminder: "Ship clean, accessible, tactile UI with deliberate craft."
+      <p className="font-hand text-0.5 text-slate-800 inline-flex items-center gap-1.5">
+        <Pencil size={16} />
+        <span>Quick notebook reminder: "Ship clean, accessible, tactile UI with deliberate craft."</span>
       </p>
     ),
     medium: (
@@ -99,13 +112,16 @@ export const ComponentPlayground: React.FC = () => {
         </p>
         <ul className="space-y-1.5 font-sans text-0.375 text-slate-600 bg-white/60 p-3 rounded sketch-box-sm">
           <li className="flex items-center gap-1.5">
-            <span className="text-emerald-600 font-bold">✓</span> Reusable across Card and StickyNoteStack
+            <Check size={14} className="text-emerald-600 shrink-0" />
+            <span>Reusable across Card and StickyNoteStack</span>
           </li>
           <li className="flex items-center gap-1.5">
-            <span className="text-emerald-600 font-bold">✓</span> Dual opposite-corner washi tape support
+            <Check size={14} className="text-emerald-600 shrink-0" />
+            <span>Dual opposite-corner washi tape support</span>
           </li>
           <li className="flex items-center gap-1.5">
-            <span className="text-emerald-600 font-bold">✓</span> Radix UI and WCAG accessible foundations
+            <Check size={14} className="text-emerald-600 shrink-0" />
+            <span>Radix UI and WCAG accessible foundations</span>
           </li>
         </ul>
       </div>
@@ -247,7 +263,7 @@ export const ComponentPlayground: React.FC = () => {
         <div>
           <div className="relative inline-flex items-center h-line-1 mb-line-1">
             <Badge variant="yellow" className="gap-1.5 text-0.375">
-              <Sliders className="w-3.5 h-3.5" />
+              <Sliders size={14} />
               <span>Design System Inspector</span>
             </Badge>
             <span className="font-hand text-0.5 text-slate-500 ml-2">• Test Bench</span>
@@ -282,11 +298,11 @@ export const ComponentPlayground: React.FC = () => {
               onClick={() => setShowGridOverlay(!showGridOverlay)}
               className={showGridOverlay ? 'bg-yellow-200' : ''}
             >
-              <Grid className="w-3.5 h-3.5 mr-1" />
+              <Grid3x3 size={14} className="mr-1" />
               <span>{showGridOverlay ? 'Hide Ruled Lines' : 'Show Ruled Lines'}</span>
             </Button>
             <Button variant="ghost" size="sm" onClick={resetDefaults}>
-              <RefreshCw className="w-3.5 h-3.5 mr-1" />
+              <RefreshCw size={14} className="mr-1" />
               <span>Reset</span>
             </Button>
           </div>
@@ -370,11 +386,11 @@ export const ComponentPlayground: React.FC = () => {
                     }`}
                   >
                     {f === 'tape'
-                      ? 'Washi Strip 🏷️'
+                      ? 'Washi Strip'
                       : f === 'tape-corners'
-                      ? '2 Corners 🌟'
+                      ? '2 Corners'
                       : f === 'tape-4-corners'
-                      ? '4 Corners ❖'
+                      ? '4 Corners'
                       : f === 'pin'
                       ? 'Pushpin'
                       : f === 'staple'
@@ -560,10 +576,10 @@ export const ComponentPlayground: React.FC = () => {
                     { id: 'medium', label: 'Medium' },
                     { id: 'long', label: 'Long' },
                     { id: 'card-full', label: 'Full Card' },
-                    { id: 'overflow-url', label: 'URL Wrap 🚨' },
-                    { id: 'overflow-scroll', label: 'Scroll Log 📜' },
-                    { id: 'overflow-badges', label: 'Badge Cloud 🏷️' },
-                    { id: 'overflow-code', label: 'Code Scroll 💻' },
+                    { id: 'overflow-url', label: 'URL Wrap' },
+                    { id: 'overflow-scroll', label: 'Scroll Log' },
+                    { id: 'overflow-badges', label: 'Badge Cloud' },
+                    { id: 'overflow-code', label: 'Code Scroll' },
                     { id: 'empty', label: 'Empty' },
                   ] as const
                 ).map(({ id, label }) => (
@@ -1398,38 +1414,44 @@ export const ComponentPlayground: React.FC = () => {
                 aria-label="7-Sheet Project Workflow Pad"
               >
                 <StickyNotePage title="01 // Ideation">
-                  <p className="font-hand text-0.5 text-slate-800">
-                    ✏️ Sketch minimal interface layouts on tactile notebook grid.
+                  <p className="font-hand text-0.5 text-slate-800 inline-flex items-center gap-1.5">
+                    <Pencil size={14} />
+                    <span>Sketch minimal interface layouts on tactile notebook grid.</span>
                   </p>
                 </StickyNotePage>
                 <StickyNotePage title="02 // Architecture">
-                  <p className="font-hand text-0.5 text-slate-800">
-                    📐 Quantize margins and spacing to 32px line rhythm scale.
+                  <p className="font-hand text-0.5 text-slate-800 inline-flex items-center gap-1.5">
+                    <Ruler size={14} />
+                    <span>Quantize margins and spacing to 32px line rhythm scale.</span>
                   </p>
                 </StickyNotePage>
                 <StickyNotePage title="03 // Fasteners">
-                  <p className="font-hand text-0.5 text-slate-800">
-                    📌 Attach pushpins, washi tape, metallic staples, and paperclips.
+                  <p className="font-hand text-0.5 text-slate-800 inline-flex items-center gap-1.5">
+                    <PaperclipIcon size={14} />
+                    <span>Attach pushpins, washi tape, metallic staples, and paperclips.</span>
                   </p>
                 </StickyNotePage>
                 <StickyNotePage title="04 // Animation">
-                  <p className="font-hand text-0.5 text-slate-800">
-                    🎴 Lift top note, rotate outward, and slip cleanly behind stack.
+                  <p className="font-hand text-0.5 text-slate-800 inline-flex items-center gap-1.5">
+                    <Layers size={14} />
+                    <span>Lift top note, rotate outward, and slip cleanly behind stack.</span>
                   </p>
                 </StickyNotePage>
                 <StickyNotePage title="05 // Accessibility">
                   <p className="font-hand text-0.5 text-slate-800">
-                    ♿ ARIA region, live reader announcer, Space &amp; Arrow keys.
+                    ARIA region, live reader announcer, Space &amp; Arrow keys.
                   </p>
                 </StickyNotePage>
                 <StickyNotePage title="06 // Fallbacks">
-                  <p className="font-hand text-0.5 text-slate-800">
-                    📜 Graceful internal scrollbars &amp; dev console warnings.
+                  <p className="font-hand text-0.5 text-slate-800 inline-flex items-center gap-1.5">
+                    <FileText size={14} />
+                    <span>Graceful internal scrollbars &amp; dev console warnings.</span>
                   </p>
                 </StickyNotePage>
                 <StickyNotePage title="07 // Release">
-                  <p className="font-hand text-0.5 text-emerald-800 font-bold">
-                    🚀 Fully polished, tactile 2026 portfolio experience shipped!
+                  <p className="font-hand text-0.5 text-emerald-800 font-bold inline-flex items-center gap-1.5">
+                    <Send size={14} />
+                    <span>Fully polished, tactile 2026 portfolio experience shipped!</span>
                   </p>
                 </StickyNotePage>
               </StickyNoteStack>
@@ -1487,7 +1509,7 @@ export const ComponentPlayground: React.FC = () => {
                 </StickyNotePage>
                 <StickyNotePage title="Sheet 2 // Navigated">
                   <p className="font-hand text-0.5 text-slate-800">
-                    🎉 You clicked the non-interactive note body or corner tab to shuffle here!
+                    You clicked the non-interactive note body or corner tab to shuffle here!
                   </p>
                 </StickyNotePage>
               </StickyNoteStack>
@@ -1519,18 +1541,21 @@ export const ComponentPlayground: React.FC = () => {
                 className="w-full max-w-[224px]"
               >
                 <StickyNotePage title="Burst Test Sheet A">
-                  <p className="font-hand text-0.5 text-slate-800">
-                    ⚡ Rapid clicks are locked during the 420ms shuffle transition.
+                  <p className="font-hand text-0.5 text-slate-800 inline-flex items-center gap-1.5">
+                    <Zap size={14} />
+                    <span>Rapid clicks are locked during the 420ms shuffle transition.</span>
                   </p>
                 </StickyNotePage>
                 <StickyNotePage title="Burst Test Sheet B">
-                  <p className="font-hand text-0.5 text-slate-800">
-                    🛡️ Prevents race conditions and duplicate animation triggers.
+                  <p className="font-hand text-0.5 text-slate-800 inline-flex items-center gap-1.5">
+                    <ShieldCheck size={14} />
+                    <span>Prevents race conditions and duplicate animation triggers.</span>
                   </p>
                 </StickyNotePage>
                 <StickyNotePage title="Burst Test Sheet C">
-                  <p className="font-hand text-0.5 text-slate-800">
-                    🎯 Total verified sheet cycles: {fastClickCount}
+                  <p className="font-hand text-0.5 text-slate-800 inline-flex items-center gap-1.5">
+                    <Crosshair size={14} />
+                    <span>Total verified sheet cycles: {fastClickCount}</span>
                   </p>
                 </StickyNotePage>
               </StickyNoteStack>
@@ -1555,9 +1580,10 @@ export const ComponentPlayground: React.FC = () => {
                     }, i * 35);
                   }
                 }}
-                className="w-full text-0.375 font-sketch h-7"
+                className="w-full text-0.375 font-sketch h-7 inline-flex items-center justify-center gap-1.5"
               >
-                ⚡ Trigger 5 Rapid Clicks in 150ms
+                <Zap size={14} />
+                <span>Trigger 5 Rapid Clicks in 150ms</span>
               </Button>
             </div>
           </div>
@@ -1586,8 +1612,9 @@ export const ComponentPlayground: React.FC = () => {
                   </div>
                 </StickyNotePage>
                 <StickyNotePage title="Clean Page 2">
-                  <p className="font-hand text-0.5 text-slate-800">
-                    ✨ Splitting content across sheets keeps notes clean and scrollbar-free!
+                  <p className="font-hand text-0.5 text-slate-800 inline-flex items-center gap-1.5">
+                    <Star size={14} />
+                    <span>Splitting content across sheets keeps notes clean and scrollbar-free!</span>
                   </p>
                 </StickyNotePage>
               </StickyNoteStack>
@@ -1596,8 +1623,9 @@ export const ComponentPlayground: React.FC = () => {
               <p className="font-sans text-0.375 text-slate-700">
                 ✓ Internal <code className="bg-pink-200/60 px-1 rounded text-0.25">notebook-scrollbar</code> fallback active.
               </p>
-              <span className="font-sketch text-0.25 text-rose-700 block">
-                ⚠️ Open browser DevTools console to see the [StickyNoteStack] warning
+              <span className="font-sketch text-0.25 text-rose-700 block inline-flex items-center justify-center gap-1">
+                <TriangleAlert size={12} />
+                <span>Open browser DevTools console to see the [StickyNoteStack] warning</span>
               </span>
             </div>
           </div>
@@ -1639,10 +1667,10 @@ export const ComponentPlayground: React.FC = () => {
               >
                 <StickyNotePage title={`${sizeDemo} Pad // Sheet 1`}>
                   <p className="font-hand text-0.5 text-slate-800">
-                    {sizeDemo === '3x3' && '📌 3x3 Micro Note (96px = 3 lines)'}
-                    {sizeDemo === '5x5' && '📌 5x5 Compact Note (160px = 5 lines)'}
-                    {sizeDemo === '7x7' && '📌 7x7 Standard Tactile Post-it (224px = 7 lines)'}
-                    {sizeDemo === '10x10' && '📌 10x10 Large Square Canvas (320px = 10 lines)'}
+                    {sizeDemo === '3x3' && '3x3 Micro Note (96px = 3 lines)'}
+                    {sizeDemo === '5x5' && '5x5 Compact Note (160px = 5 lines)'}
+                    {sizeDemo === '7x7' && '7x7 Standard Tactile Post-it (224px = 7 lines)'}
+                    {sizeDemo === '10x10' && '10x10 Large Square Canvas (320px = 10 lines)'}
                   </p>
                 </StickyNotePage>
                 <StickyNotePage title={`${sizeDemo} Pad // Sheet 2`}>

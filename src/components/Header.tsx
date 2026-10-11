@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, SquarePen } from '@matita/icons/react';
 
 export const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -76,7 +76,10 @@ export const Header: React.FC = () => {
         {/* Action Button & Mobile Menu Toggle */}
         <div className="flex items-center gap-2 sm:gap-3">
           <Button variant="default" size="sm" asChild className="font-sketch text-0.375 tracking-wide">
-            <a href="/#contact">Say Hello! ✍️</a>
+            <a href="/#contact" className="inline-flex items-center gap-1.5">
+              <span>Say Hello!</span>
+              <SquarePen size={14} />
+            </a>
           </Button>
 
           {/* Mobile Menu Toggle Button */}
@@ -88,9 +91,9 @@ export const Header: React.FC = () => {
             aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? (
-              <X className="h-5 w-5" />
+              <X size={20} />
             ) : (
-              <Menu className="h-5 w-5" />
+              <Menu size={20} />
             )}
           </button>
         </div>

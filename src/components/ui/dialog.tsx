@@ -1,6 +1,6 @@
 import * as React from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
-import { X } from "lucide-react"
+import { X } from "@matita/icons/react"
 
 import { cn } from "@/lib/utils"
 import { Tape } from "@/components/ui/fixture"
@@ -47,7 +47,7 @@ const DialogContent = React.forwardRef<
       
       {children}
       <DialogPrimitive.Close className="absolute right-4 top-4 sketch-box-sm w-7 h-7 flex items-center justify-center bg-white/80 backdrop-blur-sm hover:bg-rose-100 hover:rotate-6 transition-all focus:outline-none">
-        <X className="h-4 w-4 text-slate-800" />
+        <X size={16} className="text-slate-800" />
         <span className="sr-only">Close</span>
       </DialogPrimitive.Close>
     </DialogPrimitive.Content>

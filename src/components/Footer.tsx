@@ -1,4 +1,5 @@
 import React from 'react';
+import { Book } from '@matita/icons/react';
 
 export const Footer: React.FC = () => {
   return (
@@ -14,10 +15,11 @@ export const Footer: React.FC = () => {
             href="/test"
             className="font-sketch text-0.375 font-bold text-slate-600 hover:text-slate-900 bg-yellow-100 hover:bg-yellow-200 px-2 py-0.5 rounded sketch-box-sm transition-all"
           >
-            🧪 Component Test Bench
+            Component Test Bench
           </a>
-          <p className="font-hand text-0.5 text-slate-600">
-            📓 Crafted with care in Astro, React &amp; Tailwind
+          <p className="font-hand text-0.5 text-slate-600 inline-flex items-center gap-1.5">
+            <Book size={14} />
+            <span>Crafted with care in Astro, React &amp; Tailwind</span>
           </p>
         </div>
       </div>

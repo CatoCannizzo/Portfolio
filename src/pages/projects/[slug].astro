@@ -10,7 +10,7 @@ import {
   DoodleCheck,
 } from '@/components/Doodles';
 import { projectsData } from '@/data/projects';
-import { ArrowLeft, ArrowUpRight, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, ExternalLink } from '@matita/icons/react';
 
 export function getStaticPaths() {
   return projectsData.map((project, index) => {
@@ -36,7 +36,7 @@ const { project, prev, next } = Astro.props;
     <div class="flex items-center justify-between mb-line-1 pb-line-0.5 border-b border-dashed border-slate-300">
       <Button variant="doodle" size="sm" asChild className="group font-sketch text-0.375 font-bold">
         <a href="/#projects" class="flex items-center gap-2">
-          <ArrowLeft class="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+          <ArrowLeft size={16} class="transition-transform group-hover:-translate-x-1" />
           <span>← Back to Notebook</span>
         </a>
       </Button>
@@ -72,7 +72,7 @@ const { project, prev, next } = Astro.props;
             class="inline-flex items-center gap-1 font-sketch text-0.375 font-bold text-blue-600 hover:text-blue-800 underline underline-offset-4"
           >
             <span>Live Repo / Prototype</span>
-            <ExternalLink class="h-3.5 w-3.5" />
+            <ExternalLink size={14} />
           </a>
         </div>
 
